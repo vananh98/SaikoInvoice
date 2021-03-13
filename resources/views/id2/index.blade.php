@@ -25,7 +25,7 @@
                                     <th scope="row">1</th>
                                     <td>{{ $item->form1->tieu_de }}</td>
                                     <td>
-                                        <a href="">
+                                        <a href="{{ route('id2.edit', ['id2' => $item->id]) }}">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                     </td>

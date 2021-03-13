@@ -58,7 +58,7 @@ class id_2_Controller extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('id2.update');
     }
 
     /**
