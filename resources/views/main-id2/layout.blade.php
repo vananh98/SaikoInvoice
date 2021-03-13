@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="toastr.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     @yield('style')
 </head>
 
@@ -44,7 +44,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -234,9 +234,25 @@
     <!-- Page level custom scripts -->
     <script src="assets/js/demo/chart-area-demo.js"></script>
     <script src="assets/js/demo/chart-pie-demo.js"></script>
+    <script>
+        $(document).ready(function() {
+            var stt = 1
+            $(".addRow").click(function() {
+                var obj = $(this).parent().parent()
+                $("<tr class='custom-tr'>" + "<th class='border-custome'>" + stt + "</th>" +
+                        "<td class='border-custome'> <input type='text' class='form-control' name='form4-tenhang[]'></td>" +
+                        "<td class='border-custome'><input type='text' class='form-control' name='form4-dvt[]'></td>" +
+                        "<td class='border-custome'><input type='text' class='form-control' name='form4-soluong[]'></td>" +
+                        "<td class='border-custome'><input type='text' class='form-control' name='form4-dongia[]'></td>" +
+                        "<td class='border-custome'><input type='text' readonly class='form-control unset-border-input' name='form4-thanhtien[]'></td>" +
+                        "<td class='border-custome'> </td>" +
+                        "/tr>")
+                    .insertBefore($("#congtienhang"))
+                    ++stt
+            })
+        })
 
+    </script>
 </body>
-
-@yield('script')
 
 </html>
