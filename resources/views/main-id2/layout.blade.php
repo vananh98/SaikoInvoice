@@ -242,16 +242,19 @@
                 $("<tr class='custom-tr'>" + "<th class='border-custome'>" + stt + "</th>" +
                         "<td class='border-custome'> <input type='text' class='form-control' name='form4-tenhang[]'></td>" +
                         "<td class='border-custome'><input type='text' class='form-control' name='form4-dvt[]'></td>" +
-                        "<td class='border-custome'><input type='text' class='form-control' name='form4-soluong[]'></td>" +
-                        "<td class='border-custome'><input type='text' class='form-control' name='form4-dongia[]'></td>" +
-                        "<td class='border-custome'><input type='text' readonly class='form-control unset-border-input' name='form4-thanhtien[]'></td>" +
+                        "<td class='border-custome'><input type='text' class='form-control' name='form4-soluong[]' onchange=updateTotal(this)></td>" +
+                        "<td class='border-custome'><input type='text' class='form-control' name='form4-dongia[]' onchange=updateTotal(this)></td>" +
+                        "<td class='border-custome'><input type='text' readonly class='form-control unset-border-input total' name='form4-thanhtien[]'></td>" +
                         "<td class='border-custome'> </td>" +
                         "/tr>")
                     .insertBefore($("#congtienhang"))
                     ++stt
             })
         })
+        function updateTotal(a){
+            console.log(a.value)
 
+        }
     </script>
 </body>
 

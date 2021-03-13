@@ -406,13 +406,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-4 ">
-                                    <button class="btn btn-primary float-right">1</button>
-                                </div >
-                                <div  class="col-lg-4 float-right">
-                                    <button>2</button>
+                                    <button class="btn btn-primary float-right">Lưu</button>
                                 </div>
-                                <div  class="col-lg-4 float-right">
-                                    <button>3</button>
+                                <div class="col-lg-4">
+                                    <button class="btn btn-success float-right">Lưu & Xuất PDF</button>
+                                </div>
+                                <div class="col-lg-4 ">
+                                    <button class="btn btn-primary float-right">Xuất PDF</button>
                                 </div>
                             </div>
                         </form>
