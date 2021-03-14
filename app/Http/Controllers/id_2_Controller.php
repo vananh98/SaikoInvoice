@@ -184,15 +184,14 @@ class id_2_Controller extends Controller
             'nguoi_ban_hang' => $request->form5_ngban,
             'ngay_chuyen_doi' => $request->form5_ngaychuyen
         ]);
-
+        if ($request->save_export) {
+            $pdf = PDF::loadview('pdf.test', compact('updateForm1', 'updateForm2', 'updateForm3', 'updateForm4', 'updateform5', 'updateInvoiceDetail'))->setOptions(['defaultFont' => 'Helvetica']);
+            return $pdf->download('invoice.pdf');
+        }
         $invoiceDetails = Invoice_Items_MD::where('form4_id', $invoice->form4_id)->get();
         if (($updateForm1 && $updateForm2) && ($updateForm3 && $updateForm4) && ($updateform5 && $updateInvoiceDetail)) {
             if ($request->save) {
                 return back()->with('success', 'Cập nhật thành công');
-            }
-            if ($request->save_export) {
-                $pdf = PDF::loadview('pdf.pdf', compact('updateForm1', 'updateForm2', 'updateForm3', 'updateForm4', 'updateform5', 'updateInvoiceDetail'));
-                return $pdf->download('invoice.pdf');
             }
         } else {
             session()->flash('failed', "Cập nhật thất bại");
