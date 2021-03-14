@@ -17,6 +17,8 @@
                                 <th scope="col"></th>
                                 <th scope="col">Tiêu đề</th>
                                 <th scope="col">Tác vụ</th>
+                                <th scope="col">Ngày tạo</th>
+                                <th scope="col">Ngày cập nhật</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,6 +31,8 @@
                                             <i class="fa fa-edit"></i>
                                         </a>
                                     </td>
+                                    <td>{{$item->created_at}}</td>
+                                    <td>{{$item->updated_at}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

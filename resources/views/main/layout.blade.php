@@ -75,7 +75,7 @@
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 {{-- data-toggle="collapse" data-target="#collapseUtilities" --}}
-                <a class="nav-link collapsed" href="#" aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="{{route('viewCreate')}}" aria-expanded="true" aria-controls="collapseUtilities">
                     <span>Danh sách hoá đơn</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"

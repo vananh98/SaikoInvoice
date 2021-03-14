@@ -38,5 +38,20 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('get-paymethd', 'id_2_Controller@getPM')->name('getPM');
     Route::get('get-accc-no', 'id_2_Controller@getAccNo')->name('getAccNo');
     Route::get('get-tenhang', 'id_2_Controller@getTH')->name('getTH');
-    Route::get('pdf','id_2_Controller@exportPDF')->name('exportPDF');
+    Route::get('get-note', 'id_2_Controller@getNote')->name('getNote');
+    Route::get('pdf', 'id_2_Controller@exportPDF')->name('exportPDF');
+    //form1 
+    Route::get('get-noidung', 'id_2_Controller@getND')->name('getND');
+    Route::get('get-mauso', 'id_2_Controller@getmauso')->name('getmauso');
+    Route::get('get-kyhieu', 'id_2_Controller@getkyhieu')->name('getkyhieu');
+    Route::get('get-sono', 'id_2_Controller@getsono')->name('getsono');
+    //form5
+    Route::get('get-nguoichuyen', 'id_2_Controller@getNC')->name('getNC');
+    Route::get('get-nguoimua', 'id_2_Controller@getNM')->name('getNM');
+    Route::get('get-nguoiban', 'id_2_Controller@getNB')->name('getNB');
+    Route::get('get-ngaychuyen', 'id_2_Controller@getDC5')->name('getDC5');
+    //form4 
+    Route::get('get-dvt', 'id_2_Controller@getDVT')->name('getDVT');
+    Route::get('get-soluong', 'id_2_Controller@getSL')->name('getSL');
+    Route::get('get-dongia', 'id_2_Controller@getPrice')->name('getPrice');
 });

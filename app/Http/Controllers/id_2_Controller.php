@@ -65,7 +65,14 @@ class id_2_Controller extends Controller
     public function edit($id)
     {
         $data = Invoice_MD::find($id);
-        return view('id2.update', compact('data'));
+        $form1 = Form1_MD::find($data->form1_id);
+        $form2 = Form2_MD::find($data->form2_id);
+        $form3 = Form3_MD::find($data->form3_id);
+        $form4 = Form4_MD::find($data->form4_id);
+        $form5 = Form5_MD::find($data->form5_id);
+        $arr = explode("-",$form1->ngay_thang_nam);
+
+        return view('id2.update', compact('data', 'form1','form2','form3','form4','form5','arr'));
     }
 
     /**
@@ -146,6 +153,7 @@ class id_2_Controller extends Controller
         $invoiceDetails = Invoice_Items_MD::where('form4_id', $invoice->form4_id)->get();
         if (($updateForm1 && $updateForm2) && ($updateForm3 && $updateForm4) && ($updateform5 && $updateInvoiceDetail)) {
             if ($request->save) {
+                session()->flash('success',"Cập nhật thành công");
                 return back();
             }
             if ($request->save_export) {
@@ -153,6 +161,7 @@ class id_2_Controller extends Controller
                 return $pdf->download('invoice.pdf');
             }
         } else {
+            session()->flash('failed',"Cập nhật thất bại");
             return back()->with('failed', "Tạo mới lỗi");
         }
     }
@@ -237,6 +246,69 @@ class id_2_Controller extends Controller
     public function getTH(Request $request)
     {
         $data =  Invoice_Items_MD::where('ten_hang_hoa_dich_vu', 'like', '%' . $request->char . '%')->select('ten_hang_hoa_dich_vu')->distinct()->limit(10)->get();
+        return response()->json($data);
+    }
+    public function getNote(Request $request)
+    {
+        $data =  Form3_MD::where('ghi_chu', 'like', '%' . $request->char . '%')->select('ghi_chu')->distinct()->limit(10)->get();
+        return response()->json($data);
+    }
+    //form invoice_details
+    public function getDVT(Request $request)
+    {
+        $data =  Invoice_Items_MD::where('don_vi_tinh', 'like', '%' . $request->char . '%')->select('don_vi_tinh')->distinct()->limit(10)->get();
+        return response()->json($data);
+    }
+    public function getSL(Request $request)
+    {
+        $data =  Invoice_Items_MD::where('so_luong', 'like', '%' . $request->char . '%')->select('so_luong')->distinct()->limit(10)->get();
+        return response()->json($data);
+    }
+    public function getPrice(Request $request)
+    {
+        $data =  Invoice_Items_MD::where('don_gia', 'like', '%' . $request->char . '%')->select('don_gia')->distinct()->limit(10)->get();
+        return response()->json($data);
+    }
+    //form1
+    public function getND(Request $request)
+    {
+        $data =  Form1_MD::where('noi_dung', 'like', '%' . $request->char . '%')->select('noi_dung')->distinct()->limit(10)->get();
+        return response()->json($data);
+    }
+    public function getmauso(Request $request)
+    {
+        $data =  Form1_MD::where('mau_so', 'like', '%' . $request->char . '%')->select('mau_so')->distinct()->limit(10)->get();
+        return response()->json($data);
+    }
+    public function getkyhieu(Request $request)
+    {
+        $data =  Form1_MD::where('ky_hieu', 'like', '%' . $request->char . '%')->select('ky_hieu')->distinct()->limit(10)->get();
+        return response()->json($data);
+    }
+    public function getsono(Request $request)
+    {
+        $data =  Form1_MD::where('so', 'like', '%' . $request->char . '%')->select('so')->distinct()->limit(10)->get();
+        return response()->json($data);
+    }
+    //form5 
+    public function getNC(Request $request)
+    {
+        $data =  Form5_MD::where('nguoi_chuyen_doi', 'like', '%' . $request->char . '%')->select('nguoi_chuyen_doi')->distinct()->limit(10)->get();
+        return response()->json($data);
+    }
+    public function getNM(Request $request)
+    {
+        $data =  Form5_MD::where('nguoi_mua_hang', 'like', '%' . $request->char . '%')->select('nguoi_mua_hang')->distinct()->limit(10)->get();
+        return response()->json($data);
+    }
+    public function getNB(Request $request)
+    {
+        $data =  Form5_MD::where('nguoi_ban_hang', 'like', '%' . $request->char . '%')->select('nguoi_ban_hang')->distinct()->limit(10)->get();
+        return response()->json($data);
+    }
+    public function getDC5(Request $request)
+    {
+        $data =  Form5_MD::where('ngay_chuyen_doi', 'like', '%' . $request->char . '%')->select('ngay_chuyen_doi')->distinct()->limit(10)->get();
         return response()->json($data);
     }
 }
