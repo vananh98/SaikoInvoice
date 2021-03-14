@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Form1_MD;
 use App\Models\Form2_MD;
 use App\Models\Form3_MD;
+use App\Models\Form4_MD;
+use App\Models\Form5_MD;
+use App\Models\Invoice_Items_MD;
 use App\Models\Invoice_MD;
 use Illuminate\Http\Request;
+use PDF;
 
 class id_2_Controller extends Controller
 {
@@ -38,7 +43,6 @@ class id_2_Controller extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -60,7 +64,8 @@ class id_2_Controller extends Controller
      */
     public function edit($id)
     {
-        return view('id2.update');
+        $data = Invoice_MD::find($id);
+        return view('id2.update', compact('data'));
     }
 
     /**
@@ -72,7 +77,84 @@ class id_2_Controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+        $invoice = Invoice_MD::find($id);
+        //update form1
+        $updateForm1 = Form1_MD::find($invoice->form1_id);
+        $updateForm1->update([
+            'tieu_de' => $request->form1_tieude,
+            'noi_dung' => $request->form1_mauso,
+            'mau_so' => $request->form1_noidung,
+            'ky_hieu' => $request->form1_kyhieu,
+            'so' => $request->form1_so,
+            'ngay_thang_nam' => $request->form1_ngay . '-' . $request->form1_thang . '-' . $request->form1_nam
+        ]);
+        //update form 2
+        $updateForm2 = Form2_MD::find($invoice->form2_id);
+        $updateForm2->update([
+            'don_vi_ban_hang' => $request->form2_dvbh,
+            'ma_so_thue' => $request->form2_mst,
+            'dia_chi' => $request->form2_diachi,
+            'dien_thoai' => $request->form2_dienthoai,
+            'so_tai_khoan' => $request->form2_stk,
+            'ngan_hang' => $request->form2_nh
+        ]);
+        //update form 3
+        $updateForm3 = Form3_MD::find($invoice->form3_id);
+        $updateForm3->update([
+            'ho_ten_nguoi_mua' => $request->form3_nmh,
+            'ten_don_vi' => $request->form3_dv,
+            'ma_so_thue' => $request->form3_mst,
+            'dia_chi' => $request->form3_diachi,
+            'hinh_thuc_thanh_toan' => $request->form3_paymethod,
+            'so_tai_khoan' => $request->form3_stk,
+            'ghi_chu' => $request->form3_note
+        ]);
+        //update form 4
+        $updateForm4 = Form4_MD::find($invoice->form4_id);
+        $updateForm4->update([
+            'cong_tien_hang' => $request->form4_congtienhang,
+            'thue_suat_gtgt' => $request->form4_thuegtgt,
+            'tien_thue_gtgt' => $request->form4_tienthuegtgt,
+            'tong_cong_tien_thanh_toan' => $request->form4_tongtienthanhtoan,
+            'so_tien_viet_bang_chu' => $request->form4_tienchu
+        ]);
+        //update form invoice_details
+        if (!($request->form4_tenhang == NULL)) {
+            for ($i = 0; $i <= count($request->form4_tenhang) - 1; $i++) {
+                $updateInvoiceDetail = Invoice_Items_MD::create([
+                    'form4_id' => $invoice->form4_id,
+                    'ten_hang_hoa_dich_vu' => $request->form4_tenhang[$i],
+                    'don_vi_tinh' => $request->form4_dvt[$i],
+                    'so_luong' => $request->form4_soluong[$i],
+                    'don_gia' => $request->form4_dongia[$i],
+                    'thanh_tien' => $request->form4_thanhtien[$i]
+                ]);
+            }
+        } else {
+            $updateInvoiceDetail = 1;
+        }
+        //update form 5
+        $updateform5 = Form5_MD::find($invoice->form5_id);
+        $updateform5->update([
+            'nguoi_chuyen_doi' => $request->form5_nguoichuyen,
+            'nguoi_mua_hang' => $request->form5_nguoimua,
+            'nguoi_ban_hang' => $request->form5_ngban,
+            'ngay_chuyen_doi' => $request->form5_ngaychuyen
+        ]);
+
+        $invoiceDetails = Invoice_Items_MD::where('form4_id', $invoice->form4_id)->get();
+        if (($updateForm1 && $updateForm2) && ($updateForm3 && $updateForm4) && ($updateform5 && $updateInvoiceDetail)) {
+            if ($request->save) {
+                return back();
+            }
+            if ($request->save_export) {
+                $pdf = PDF::loadview('pdf.pdf', compact('updateForm1', 'updateForm2', 'updateForm3', 'updateForm4', 'updateform5', 'updateInvoiceDetail'));
+                return $pdf->download('invoice.pdf');
+            }
+        } else {
+            return back()->with('failed', "Tạo mới lỗi");
+        }
     }
 
     /**
@@ -81,6 +163,10 @@ class id_2_Controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function exportPDF()
+    {
+        return view('pdf.pdf');
+    }
     public function destroy($id)
     {
         //
@@ -146,6 +232,11 @@ class id_2_Controller extends Controller
     public function getAccNo(Request $request)
     {
         $data =  Form3_MD::where('so_tai_khoan', 'like', '%' . $request->char . '%')->select('so_tai_khoan')->distinct()->limit(10)->get();
+        return response()->json($data);
+    }
+    public function getTH(Request $request)
+    {
+        $data =  Invoice_Items_MD::where('ten_hang_hoa_dich_vu', 'like', '%' . $request->char . '%')->select('ten_hang_hoa_dich_vu')->distinct()->limit(10)->get();
         return response()->json($data);
     }
 }

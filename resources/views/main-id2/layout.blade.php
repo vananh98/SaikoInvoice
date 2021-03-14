@@ -20,6 +20,85 @@
     <!-- Custom styles for this template-->
     <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        b {
+            font-size: 11px !important;
+            color: black !important
+        }
+
+        .custom-label {
+            padding-left: 5% !important;
+        }
+
+        .custom-padding {
+            padding-left: 10% !important;
+        }
+
+        .custom-form-group-row {
+            padding-left: 3% !important;
+        }
+
+        .custom-padding-right {
+            padding-right: 2% !important;
+        }
+
+        .custom-padding-top {
+            padding-top: 1% !important;
+        }
+
+        .unset-border {
+            border: unset !important;
+        }
+
+        .unset-border {
+            width: 60px !important;
+        }
+
+        i {
+            color: black !important;
+        }
+
+        .custom-font-boil {
+            font-weight: bold;
+            color: black;
+        }
+
+        .custom-padding-left {
+            padding-left: 2% !important;
+        }
+
+        .padding-left {
+            padding-left: 16% !important;
+        }
+
+        .fix-margin {
+            margin-left: 15% !important;
+            width: 50% !important;
+        }
+
+        .border-custome {
+            border: 1px solid black !important;
+        }
+
+        .custom-tr {
+            text-align: center;
+            color: black;
+        }
+
+        .unset-border-input {
+            border: unset !important;
+            overflow: auto;
+        }
+
+        .fix-font-size {
+            font-size: 17px !important;
+        }
+
+        .fix-width-input {
+            width: 7% !important;
+        }
+
+    </style>
     @yield('style')
 </head>
 
@@ -73,83 +152,10 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            {{-- <li class="nav-item">
-                data-toggle="collapse" data-target="#collapseUtilities"
-                <a class="nav-link collapsed" href="#" aria-expanded="true" aria-controls="collapseUtilities">
-                    <span>Danh sách hoá đơn</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
-            </li> --}}
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            {{-- <div class="sidebar-heading">
-                Addons
-            </div> --}}
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            {{-- <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li> --}}
-
-            <!-- Nav Item - Charts -->
-            {{-- <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li> --}}
-
-            <!-- Nav Item - Tables -->
-            {{-- <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li> --}}
-
-            <!-- Divider -->
-            {{-- <hr class="sidebar-divider d-none d-md-block"> --}}
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            {{-- <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div> --}}
-
-            <!-- Sidebar Message -->
-            {{-- <div class="sidebar-card">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="">
-                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components,
-                    and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to
-                    Pro!</a>
-            </div> --}}
 
         </ul>
         <!-- End of Sidebar -->
@@ -240,11 +246,11 @@
             $(".addRow").click(function() {
                 var obj = $(this).parent().parent()
                 $("<tr class='custom-tr'>" + "<th class='border-custome'>" + stt + "</th>" +
-                        "<td class='border-custome'> <input type='text' class='form-control' name='form4-tenhang[]' value=''></td>" +
-                        "<td class='border-custome'><input type='text' class='form-control' name='form4-dvt[]' value=''></td>" +
-                        "<td class='border-custome'><input type='text' class='form-control' name='form4-soluong[]' onchange='updateTotal(this)' value=''></td>" +
-                        "<td class='border-custome'><input type='text' class='form-control' name='form4-dongia[]' onchange='updateTotal(this)' value=''></td>" +
-                        "<td class='border-custome'><input type='text' readonly class='form-control unset-border-input total' name='form4-thanhtien[]'value=''></td>" +
+                        "<td class='border-custome'> <input type='text' class='form-control' list='tenhang' onkeyup='getTenhang(this)' name='form4_tenhang[]' value=''><datalist id='tenhang'></datalist></td>" +
+                        "<td class='border-custome'><input type='text' class='form-control' name='form4_dvt[]' value=''></td>" +
+                        "<td class='border-custome'><input type='text' class='form-control' name='form4_soluong[]' onchange='updateTotal(this)' value=''></td>" +
+                        "<td class='border-custome'><input type='text' class='form-control' name='form4_dongia[]' onchange='updateTotal(this)' value=''></td>" +
+                        "<td class='border-custome'><input type='text' readonly class='form-control unset-border-input total' name='form4_thanhtien[]'value=''></td>" +
                         "<td class='border-custome'> </td>" +
                         "/tr>")
                     .insertBefore($("#congtienhang"))
@@ -253,7 +259,7 @@
         })
 
         function updateTotal(a) {
-            var qty = $(a).parent().parent().children().children().eq(2).val()
+            var qty = $(a).parent().parent().children().children().eq(4).val()
             var price = $(a).parent().parent().children().children().eq(3).val()
             var total
             var tdTotal = $(a).parent().parent().children().find('input').eq(4)
@@ -556,9 +562,33 @@
                         console.log(res)
                     },
                     success: function(response) {
-                        $("#nh").empty()
+                        $("#accountNo").empty()
                         $.each(response, function(index, value) {
-                            $("#nh").append(new Option(value.ngan_hang))
+                            $("#accountNo").append(new Option(value.so_tai_khoan))
+                        })
+                    }
+                })
+            }
+        }
+
+        //form 4
+        //ten hang
+        function getTenhang(obj) {
+            if (obj.value.length >= 3) {
+                var char = obj.value
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getTH') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $("#tenhang").empty()
+                        $.each(response, function(index, value) {
+                            $("#tenhang").append(new Option(value.so_tai_khoan))
                         })
                     }
                 })

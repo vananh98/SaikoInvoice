@@ -37,4 +37,6 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('get-address', 'id_2_Controller@getADD')->name('getADD');
     Route::get('get-paymethd', 'id_2_Controller@getPM')->name('getPM');
     Route::get('get-accc-no', 'id_2_Controller@getAccNo')->name('getAccNo');
+    Route::get('get-tenhang', 'id_2_Controller@getTH')->name('getTH');
+    Route::get('pdf','id_2_Controller@exportPDF')->name('exportPDF');
 });
