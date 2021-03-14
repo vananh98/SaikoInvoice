@@ -240,21 +240,331 @@
             $(".addRow").click(function() {
                 var obj = $(this).parent().parent()
                 $("<tr class='custom-tr'>" + "<th class='border-custome'>" + stt + "</th>" +
-                        "<td class='border-custome'> <input type='text' class='form-control' name='form4-tenhang[]'></td>" +
-                        "<td class='border-custome'><input type='text' class='form-control' name='form4-dvt[]'></td>" +
-                        "<td class='border-custome'><input type='text' class='form-control' name='form4-soluong[]' onchange=updateTotal(this)></td>" +
-                        "<td class='border-custome'><input type='text' class='form-control' name='form4-dongia[]' onchange=updateTotal(this)></td>" +
-                        "<td class='border-custome'><input type='text' readonly class='form-control unset-border-input total' name='form4-thanhtien[]'></td>" +
+                        "<td class='border-custome'> <input type='text' class='form-control' name='form4-tenhang[]' value=''></td>" +
+                        "<td class='border-custome'><input type='text' class='form-control' name='form4-dvt[]' value=''></td>" +
+                        "<td class='border-custome'><input type='text' class='form-control' name='form4-soluong[]' onchange='updateTotal(this)' value=''></td>" +
+                        "<td class='border-custome'><input type='text' class='form-control' name='form4-dongia[]' onchange='updateTotal(this)' value=''></td>" +
+                        "<td class='border-custome'><input type='text' readonly class='form-control unset-border-input total' name='form4-thanhtien[]'value=''></td>" +
                         "<td class='border-custome'> </td>" +
                         "/tr>")
                     .insertBefore($("#congtienhang"))
                     ++stt
             })
         })
-        function updateTotal(a){
-            console.log(a.value)
 
+        function updateTotal(a) {
+            var qty = $(a).parent().parent().children().children().eq(2).val()
+            var price = $(a).parent().parent().children().children().eq(3).val()
+            var total
+            var tdTotal = $(a).parent().parent().children().find('input').eq(4)
+            var sum = 0;
+            var thue = $("#thuegtgt").val();
+            var tienthue = $("#tienthuegtgt");
+            var tinhtienthue;
+            var parse;
+            total = qty * price; //tính value
+            tdTotal.val(total) //set value
+            $.each($(".total"), function(index, value) {
+                parse = value.value
+                parse = parseInt(parse)
+                sum += parse
+            })
+            $("#congtienhang2").val(sum)
+            tinhtienthue = $("#congtienhang2").val() / 100 * thue
+            tienthue.val(tinhtienthue)
+            $("#tongtienthanhtoan").val(parseInt(tienthue.val()) + parseInt($("#congtienhang2").val()))
         }
+        //DVBH
+        function getDVBH(obj) {
+            if (obj.value.length >= 3) {
+                var char = obj.value;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getDVBH') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $.each(response, function(index, value) {
+                            $("#dvbh").empty()
+                            $("#dvbh").append(new Option(value.don_vi_ban_hang))
+                        })
+                    }
+                })
+            }
+        }
+        //form2
+        //Mã số thuế
+        function getMSt(obj) {
+            if (obj.value.length >= 3) {
+                var char = obj.value;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getMST') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $("#mst").empty()
+                        $.each(response, function(index, value) {
+                            $("#mst").append(new Option(value.ma_so_thue))
+                        })
+                    }
+                })
+            }
+        }
+        //Địa chỉ
+        function getDC(obj) {
+            if (obj.value.length >= 3) {
+                var char = obj.value;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getDC') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $("#dc").empty()
+                        $.each(response, function(index, value) {
+                            $("#dc").append(new Option(value.dia_chi))
+                        })
+                    }
+                })
+            }
+        }
+        //Địa chỉ
+        function getDC(obj) {
+            if (obj.value.length >= 3) {
+                var char = obj.value;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getDC') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $("#dc").empty()
+                        $.each(response, function(index, value) {
+                            $("#dc").append(new Option(value.dia_chi))
+                        })
+                    }
+                })
+            }
+        }
+        //Điện thoại
+        function getDT(obj) {
+            if (obj.value.length >= 3) {
+                var char = obj.value;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getDT') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $("#dt").empty()
+                        $.each(response, function(index, value) {
+                            console.log(value)
+                            $("#dt").append(new Option(value.dien_thoai))
+                        })
+                    }
+                })
+            }
+        }
+        //số tài khoản
+        function getSTK(obj) {
+            if (obj.value.length >= 3) {
+                var char = obj.value;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getSTK') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $("#stk").empty()
+                        $.each(response, function(index, value) {
+                            $("#stk").append(new Option(value.so_tai_khoan))
+                        })
+                    }
+                })
+            }
+        }
+        //Ngân hàng
+        function getNH(obj) {
+            if (obj.value.length >= 3) {
+                var char = obj.value;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getNH') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $("#nh").empty()
+                        $.each(response, function(index, value) {
+                            $("#nh").append(new Option(value.ngan_hang))
+                        })
+                    }
+                })
+            }
+        }
+        //form3
+        //buyer
+        function getBuyer(obj) {
+            if (obj.value.length >= 3) {
+                var char = obj.value;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getBuyer') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $("#buyer").empty()
+                        $.each(response, function(index, value) {
+                            $("#buyer").append(new Option(value.ho_ten_nguoi_mua))
+                        })
+                    }
+                })
+            }
+        }
+        //company
+        function getCPN(obj) {
+            if (obj.value.length >= 3) {
+                var char = obj.value;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getCPN') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $("#cpn").empty()
+                        $.each(response, function(index, value) {
+                            $("#cpn").append(new Option(value.ten_don_vi))
+                        })
+                    }
+                })
+            }
+        }
+        //mã số thuế
+        function getTax(obj) {
+            if (obj.value.length >= 3) {
+                var char = obj.value;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getTax') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $("#tax").empty()
+                        $.each(response, function(index, value) {
+                            $("#tax").append(new Option(value.ma_so_thue))
+                        })
+                    }
+                })
+            }
+        }
+        //địa chỉ
+        function getADD(obj) {
+            if (obj.value.length >= 3) {
+                var char = obj.value;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getADD') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $("#address").empty()
+                        $.each(response, function(index, value) {
+                            console.log(value)
+                            $("#address").append(new Option(value.dia_chi))
+                        })
+                    }
+                })
+            }
+        }
+        //payment method
+        function getPM(obj) {
+            if (obj.value.length >= 3) {
+                var char = obj.value;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getPM') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $("#pm").empty()
+                        $.each(response, function(index, value) {
+                            $("#pm").append(new Option(value.hinh_thuc_thanh_toan))
+                        })
+                    }
+                })
+            }
+        }
+        //số tài khoản
+        function getAccNo(obj) {
+            if (obj.value.length >= 3) {
+                var char = obj.value;
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getAccNo') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $("#nh").empty()
+                        $.each(response, function(index, value) {
+                            $("#nh").append(new Option(value.ngan_hang))
+                        })
+                    }
+                })
+            }
+        }
+
     </script>
 </body>
 

@@ -167,39 +167,51 @@
                                     <label for="staticEmail" class="col-sm-3 col-form-label custom-font-boil">Đơn vị bán
                                         hàng <i>(Issued)</i></label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="staticEmail" value="" name="form2-dvbh">
+                                        <input type="text" class="form-control" list="dvbh" id="staticEmail"
+                                            onkeyup="getDVBH(this)" value="" name="form2-dvbh">
+                                        <datalist id="dvbh"></datalist>
                                     </div>
                                 </div>
                                 <div class="form-group row custom-padding-top custom-padding-right custom-padding-left">
                                     <label for="inputPassword" class="col-sm-3 col-form-label  custom-font-boil">Mã số thuế
                                         <i>(Tax code)</i></label>
                                     <div class="col-sm-9">
-                                        <input type="quantity" class="form-control" id="inputPassword" name="form2-mst"
-                                            placeholder="">
+                                        <input type="quantity" onkeyup="getMSt(this)" list="mst" class="form-control"
+                                            id="inputPassword" name="form2-mst" placeholder="">
+                                        <datalist id="mst"></datalist>
                                     </div>
                                 </div>
                                 <div class="form-group row custom-padding-top custom-padding-right custom-padding-left">
                                     <label for="inputPassword" class="col-sm-3 col-form-label  custom-font-boil">Địa chỉ
                                         <i>(Address)</i></label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="form2-diachi" id="inputPassword"
-                                            placeholder="">
+                                        <input type="text" onkeyup="getDC(this)" class="form-control" list="dc"
+                                            name="form2-diachi" id="inputPassword" placeholder="">
+                                        <datalist id="dc"></datalist>
                                     </div>
                                 </div>
                                 <div class="form-group row custom-padding-top custom-padding-right custom-padding-left">
                                     <label for="inputPassword" class="col-sm-3 col-form-label  custom-font-boil">Điện thoại
                                         <i>(Phone number)</i></label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="form2-dienthoai" id="inputPassword"
-                                            placeholder="">
+                                        <input type="text" onkeyup="getDT(this)" list="dt" class="form-control"
+                                            name="form2-dienthoai" id="inputPassword" placeholder="">
+                                        <datalist id="dt"></datalist>
                                     </div>
                                 </div>
                                 <div class="form-group row custom-padding-top custom-padding-right custom-padding-left">
                                     <label for="inputPassword" class="col-sm-3 col-form-label  custom-font-boil">Số tài
                                         khoản <i>(Account No)</i></label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" name="form2-stk" id="inputPassword"
-                                            placeholder="">
+                                    <div class="col-sm-3">
+                                        <input type="text" list="stk" onkeyup="getSTK(this)" class="form-control"
+                                            name="form2-stk" id="inputPassword" placeholder="">
+                                        <datalist id="stk"></datalist>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <input type="text" list="nh" onkeyup="getNH(this)" class="form-control"
+                                            name="form2-nh" id="inputPassword" placeholder="Tên ngân hàng">
+                                        <datalist id="nh"></datalist>
                                     </div>
                                 </div>
                             </div>
@@ -209,40 +221,46 @@
                                     <label for="staticEmail" class="col-sm-3 col-form-label custom-font-boil">Họ tên người
                                         mua hàng<i>(Buyer name)</i></label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control   " id="staticEmail" value=""
-                                            name="form3-nmh">
+                                        <input type="text" class="form-control" list="buyer" onkeyup="getBuyer(this)"
+                                            id="staticEmail" value="" name="form3-nmh">
+                                        <datalist id="buyer"></datalist>
                                     </div>
                                 </div>
                                 <div class="form-group row custom-padding-top custom-padding-right custom-padding-left">
                                     <label for="inputPassword" class="col-sm-3 col-form-label  custom-font-boil">Tên đơn vị
                                         <i>(Company name)</i></label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="inputPassword" placeholder=""
-                                            name="form3-dv">
+                                        <input type="text" list="cpn" onkeyup="getCPN(this)" class="form-control"
+                                            id="inputPassword" placeholder="" name="form3-dv">
+                                        <datalist id="cpn"></datalist>
                                     </div>
                                 </div>
                                 <div class="form-group row custom-padding-top custom-padding-right custom-padding-left">
                                     <label for="inputPassword" class="col-sm-3 col-form-label  custom-font-boil">Mã số thuế
                                         <i>(Tax code)</i></label>
                                     <div class="col-sm-9">
-                                        <input type="quantity" class="form-control" id="inputPassword" placeholder=""
-                                            name="form3-mst">
+                                        <input type="quantity" list="tax" onkeyup="getTax(this)" class="form-control"
+                                            id="inputPassword" placeholder="" name="form3-mst">
+                                        <datalist id="tax"></datalist>
                                     </div>
                                 </div>
                                 <div class="form-group row custom-padding-top custom-padding-right custom-padding-left">
                                     <label for="inputPassword" class="col-sm-3 col-form-label  custom-font-boil">Địa chỉ
                                         <i>(Address)</i></label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="inputPassword" placeholder=""
-                                            name="form3-diachi">
+                                        <input type="text" list="address" onkeyup="getADD(this)" class="form-control"
+                                            id="inputPassword" placeholder="" name="form3-diachi">
+                                        <datalist id="address"></datalist>
                                     </div>
                                 </div>
                                 <div class="form-group row custom-padding-top custom-padding-right custom-padding-left">
                                     <label for="inputPassword" class="col-sm-3 col-form-label  custom-font-boil">Hình thức
                                         thanh toán <i>(Payment method)</i></label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="inputPassword" placeholder=""
+                                        <input type="text" list="pm" onkeyup="getPM(this)" class="form-control" id="inputPassword" placeholder=""
                                             name="form3-paymethod">
+                                            <datalist id="pm"></datalist>
+
                                     </div>
                                     <label for="inputPassword" class="col-sm-3 col-form-label  custom-font-boil">Số tài
                                         khoản <i>(Account No.):</i></label>
@@ -300,7 +318,7 @@
                                             </th>
                                             <td class="border-custome">
                                                 <input type="text" class="form-control unset-border-input"
-                                                    name="form-4-congtienhang" readonly>
+                                                    name="form-4-congtienhang" id="congtienhang2" readonly value="">
                                             </td>
                                             <td class="border-custome"></td>
                                         </tr>
@@ -308,8 +326,9 @@
                                             <th colspan="2" class="border-custome " scope="row">
                                                 <b class=" fix-font-size">Thuế suất GTGT
                                                     <i class="font-weight-normal">(VAT rate):</i>
-                                                    <input type="text" class="unset-border-input fix-width-input"
-                                                        name="form4-thuegtgt" placeholder="......."><span
+                                                    <input type="quantity" onchange="updateTotal()"
+                                                        class="unset-border-input fix-width-input" name="form4-thuegtgt"
+                                                        placeholder="......." id="thuegtgt"><span
                                                         style="font-weight: normal !important">%</span>
                                                 </b>
                                             </th>
@@ -320,7 +339,7 @@
                                             </td>
                                             <td class="border-custome">
                                                 <input type="text" class="form-control unset-border-input" readonly
-                                                    name="form4-tienthuegtgt">
+                                                    name="form4-tienthuegtgt" id="tienthuegtgt">
                                             </td>
                                             <td class="border-custome"></td>
                                         </tr>
@@ -332,7 +351,7 @@
                                             </th>
                                             <td class="border-custome">
                                                 <input type="text" name="form4-tongtienthanhtoan" readonly
-                                                    class="form-control unset-border-input">
+                                                    class="form-control unset-border-input" id="tongtienthanhtoan">
                                             </td>
 
                                             <td class="border-custome"></td>
