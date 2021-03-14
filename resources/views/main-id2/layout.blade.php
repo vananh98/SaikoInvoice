@@ -245,7 +245,11 @@
             var stt = 1
             $(".addRow").click(function() {
                 var obj = $(this).parent().parent()
-                $("<tr class='custom-tr'>" + "<th class='border-custome'>" + stt + "</th>" +
+                var count = $(".count-tr").length
+                console.log(count)
+                stt = count + 1
+
+                $("<tr class='custom-tr count-tr'>" + "<th class='border-custome'>" + stt + "</th>" +
                         "<td class='border-custome'> <input type='text' autocomplete='off' class='form-control' list='tenhang' onkeyup='getTenhang(this)' name='form4_tenhang[]' value=''><datalist id='tenhang'></datalist></td>" +
                         "<td class='border-custome'><input type='text' autocomplete='off' class='form-control' list='dvt' onkeyup='getDVT(this)' name='form4_dvt[]' value=''><datalist id='dvt'></datalist></td>" +
                         "<td class='border-custome'><input type='text' autocomplete='off' class='form-control'list='soluong' onkeyup='getSL(this)' name='form4_soluong[]' onchange='updateTotal(this)' value=''><datalist id='soluong'></datalist></td>" +
@@ -254,7 +258,7 @@
                         "<td class='border-custome'> </td>" +
                         "/tr>")
                     .insertBefore($("#congtienhang"))
-                    ++stt
+
             })
         })
 
@@ -298,8 +302,8 @@
                     console.log(res)
                 },
                 success: function(response) {
+                    $("#dvbh").empty()
                     $.each(response, function(index, value) {
-                        $("#dvbh").empty()
                         $("#dvbh").append(new Option(value.don_vi_ban_hang))
                     })
                 }
@@ -326,26 +330,7 @@
                 }
             })
         }
-        //Địa chỉ
-        function getDC(obj) {
-            var char = obj.value;
-            $.ajax({
-                type: "GET",
-                url: "{{ route('getDC') }}",
-                data: {
-                    char: char
-                },
-                error: function(res) {
-                    console.log(res)
-                },
-                success: function(response) {
-                    $("#dc").empty()
-                    $.each(response, function(index, value) {
-                        $("#dc").append(new Option(value.dia_chi))
-                    })
-                }
-            })
-        }
+
         //Địa chỉ
         function getDC(obj) {
             var char = obj.value;
@@ -820,6 +805,26 @@
                     $("#ngaychuyen").empty()
                     $.each(response, function(index, value) {
                         $("#ngaychuyen").append(new Option(value.ngay_chuyen_doi))
+                    })
+                }
+            })
+        }
+        //form 1
+        function getTieuDe(obj) {
+            var char = obj.value
+            $.ajax({
+                type: "GET",
+                url: "{{ route('getTieuDe') }}",
+                data: {
+                    char: char
+                },
+                error: function(res) {
+                    console.log(res)
+                },
+                success: function(response) {
+                    $("#tieude").empty()
+                    $.each(response, function(index, value) {
+                        $("#tieude").append(new Option(value.tieu_de))
                     })
                 }
             })

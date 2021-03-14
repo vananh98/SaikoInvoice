@@ -45,6 +45,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('get-mauso', 'id_2_Controller@getmauso')->name('getmauso');
     Route::get('get-kyhieu', 'id_2_Controller@getkyhieu')->name('getkyhieu');
     Route::get('get-sono', 'id_2_Controller@getsono')->name('getsono');
+    Route::get('get-tieude', 'id_2_Controller@getTieuDe')->name('getTieuDe');
     //form5
     Route::get('get-nguoichuyen', 'id_2_Controller@getNC')->name('getNC');
     Route::get('get-nguoimua', 'id_2_Controller@getNM')->name('getNM');

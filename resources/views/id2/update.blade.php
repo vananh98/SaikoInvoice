@@ -12,7 +12,7 @@
                     <div class="container col-lg-10 text-primary">
                         @if (session('success'))
                             <div class="alert alert-success">
-                                {{session('success')}}
+                                {{ session('success') }}
                             </div>
                         @endif
                         <h5>Cập nhật hoá đơn</h5>
@@ -27,7 +27,7 @@
                                 <div class="form-group row custom-padding-top">
                                     <div class="col-sm-8 custom-padding">
                                         <input type="text" class="form-control " style="background-color: white"
-                                            list="tieude" onkeyup="getTD()" autocomplete="off" name="form1_tieude"
+                                            list="tieude" onkeyup="getTieuDe(this)" autocomplete="off" name="form1_tieude"
                                             placeholder="Tiêu đề...." value="{{ $form1->tieu_de }}">
                                         <datalist id="tieude"></datalist>
                                     </div>
@@ -111,8 +111,8 @@
                                         hàng <i>(Issued)</i></label>
                                     <div class="col-sm-9">
                                         <input type="text" autocomplete="off" class="form-control" list="dvbh"
-                                            id="staticEmail" onkeyup="getDVBH(this)" value="{{ $form2->don_vi_ban_hang }}"
-                                            name="form2_dvbh">
+                                            id="staticEmail" onkeyup="getDVBH(this)"
+                                            value="{{ $form2->don_vi_ban_hang }}" name="form2_dvbh">
                                         <datalist id="dvbh"></datalist>
                                     </div>
                                 </div>
@@ -246,11 +246,11 @@
                                             <th scope="col" class="border-custome">STT <br>
                                                 <span><i style="font-weight: normal !important">(No.)</i></span>
                                             </th>
-                                            <th scope="col" class="border-custome" style="width: 40%">Tên hàng hoá,dịch vụ
+                                            <th scope="col" class="border-custome" style="width: 35%">Tên hàng hoá,dịch vụ
                                                 <br>
                                                 <span><i style="font-weight: normal !important">(Description)</i></span>
                                             </th>
-                                            <th scope="col" class="border-custome" style="width: 8%">ĐVT<br>
+                                            <th scope="col" class="border-custome" style="width: 10%">ĐVT<br>
                                                 <span><i style="font-weight: normal !important">(Unit)</i></span>
                                             </th>
                                             <th scope="col" class="border-custome" style="width: 8%">Số lượng<br>
@@ -270,9 +270,9 @@
                                     </thead>
                                     <tbody id="body-table">
 
-                                        <?php $i = 0; ?>
+                                        <?php $i = 1; ?>
                                         @foreach ($form4->invoice_details as $item)
-                                            <tr class="custom-tr">
+                                            <tr class="custom-tr count-tr">
                                                 <th class="border-custome">{{ $i }}</th>
                                                 <td class="border-custome"> <input type="text" autocomplete="off"
                                                         class="form-control" list="tenhang" onkeyup="getTenhang(this)"
