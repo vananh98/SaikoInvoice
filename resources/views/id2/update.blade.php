@@ -56,9 +56,8 @@
                                         </b>
                                     </label>
                                     <div class="col-sm-2 custom-padding-right">
-                                        <input type="text" class="form-control" list="kyhieu" onkeyup="getKH(this)"
-                                            autocomplete="off" name="form1_kyhieu" id="staticEmail"
-                                            value="{{ $form1->ky_hieu }}">
+                                        <input type="text" class="form-control" list="kyhieu" autocomplete="off"
+                                            name="form1_kyhieu" id="staticEmail" value="{{ $form1->ky_hieu }}">
                                         <datalist id="kyhieu"></datalist>
                                     </div>
                                 </div>
@@ -70,7 +69,7 @@
                                         <label for="staticEmail" class="col-form-label"><i>Ngày(Date)</i></label>
                                         <div class="col-sm-4">
                                             <input type="quantity" class="form-control unset-border" autocomplete="off"
-                                                name="form1_ngay" id="staticEmail" value="{{ $arr[0] }}"
+                                                name="form1_ngay" id="staticEmail" value=@if (isset($arr)) {{ $arr[0] }} @endif
                                                 placeholder="...">
                                         </div>
                                     </div>
@@ -78,16 +77,14 @@
                                         <label for="inputPassword" class=" col-form-label"><i>Tháng(Month)</i></label>
                                         <div class="col-sm-4">
                                             <input type="quantity" class="form-control unset-border" autocomplete="off"
-                                                name="form1_thang" id="inputPassword" placeholder="..."
-                                                value="{{ $arr[1] }}">
+                                                name="form1_thang" id="inputPassword" placeholder="..." value=@if (isset($arr)) {{ $arr[1] }} @endif>
                                         </div>
                                     </div>
                                     <div class="form-group d-flex custom-form-group-row2">
                                         <label for="inputPassword" class="col-form-label"><i>Năm(Year)</i></label>
                                         <div class="col-sm-4">
                                             <input type="quantity" class="form-control unset-border" autocomplete="off"
-                                                name="form1_nam" id="inputPassword" placeholder="..."
-                                                value="{{ $arr[2] }}">
+                                                name="form1_nam" id="inputPassword" placeholder="..." value=@if (isset($arr)) {{ $arr[2] }} @endif>
                                         </div>
                                     </div>
                                     <label for="staticEmail" class="col-sm-2 col-form-label fix-margin">
@@ -97,7 +94,6 @@
                                     </label>
                                     <div class="col-sm-1">
                                         <input type="text" class="form-control" autocomplete="off" list="soNo"
-                                            onkeyup="getNS(this)"
                                             style="width: 250% !important;margin-left: -41% !important" name="form1_so"
                                             id="staticEmail" value="{{ $form1->so }}">
                                         <datalist id="soNo"></datalist>
@@ -285,13 +281,13 @@
                                                         name="form4_dvt[]" value="{{ $item->don_vi_tinh }}"><datalist
                                                         id="dvt"></datalist></td>
                                                 <td class="border-custome"><input type="text" autocomplete="off"
-                                                        class="form-control" list="soluong" onkeyup="getSL(this)"
-                                                        name="form4_soluong[]" onchange="updateTotal(this)"
+                                                        class="form-control" list="soluong" name="form4_soluong[]"
+                                                        onchange="updateTotal(this)"
                                                         value="{{ $item->so_luong }}"><datalist id="soluong"></datalist>
                                                 </td>
                                                 <td class="border-custome"><input type="text" autocomplete="off"
-                                                        class="form-control" list="dongia" onkeyup="getGia(this)"
-                                                        name="form4_dongia[]" onchange="updateTotal(this)"
+                                                        class="form-control" list="dongia" name="form4_dongia[]"
+                                                        onchange="updateTotal(this)"
                                                         value="{{ $item->don_gia }}"><datalist id="dongia"></datalist>
                                                 </td>
                                                 <td class="border-custome"><input type="text" autocomplete="off" readonly=""

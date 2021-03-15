@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\InvoiceExportPDF;
 use App\Models\Form1_MD;
 use App\Models\Form2_MD;
 use App\Models\Form3_MD;
@@ -10,6 +11,7 @@ use App\Models\Form5_MD;
 use App\Models\Invoice_Items_MD;
 use App\Models\Invoice_MD;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use PDF;
 
 class id_2_Controller extends Controller
@@ -72,7 +74,11 @@ class id_2_Controller extends Controller
         $form5 = Form5_MD::find($data->form5_id);
         $arr = explode("-", $form1->ngay_thang_nam);
 
-        return view('id2.update', compact('data', 'form1', 'form2', 'form3', 'form4', 'form5', 'arr'));
+        if ((empty($arr[0]))) {
+            return view('id2.update', compact('data', 'form1', 'form2', 'form3', 'form4', 'form5'));
+        } else {
+            return view('id2.update', compact('data', 'form1', 'form2', 'form3', 'form4', 'form5', 'arr'));
+        }
     }
 
     /**
@@ -88,6 +94,7 @@ class id_2_Controller extends Controller
         $invoice = Invoice_MD::find($id);
         //update form1
         $updateForm1 = Form1_MD::find($invoice->form1_id);
+        $form1 = $updateForm1;
         $updateForm1->update([
             'tieu_de' => $request->form1_tieude,
             'noi_dung' => $request->form1_mauso,
@@ -98,6 +105,7 @@ class id_2_Controller extends Controller
         ]);
         //update form 2
         $updateForm2 = Form2_MD::find($invoice->form2_id);
+        $form2 = $updateForm2;
         $updateForm2->update([
             'don_vi_ban_hang' => $request->form2_dvbh,
             'ma_so_thue' => $request->form2_mst,
@@ -108,6 +116,8 @@ class id_2_Controller extends Controller
         ]);
         //update form 3
         $updateForm3 = Form3_MD::find($invoice->form3_id);
+        $form3 = $updateForm3;
+
         $updateForm3->update([
             'ho_ten_nguoi_mua' => $request->form3_nmh,
             'ten_don_vi' => $request->form3_dv,
@@ -119,6 +129,8 @@ class id_2_Controller extends Controller
         ]);
         //update form 4
         $updateForm4 = Form4_MD::find($invoice->form4_id);
+        $form4 = $updateForm4;
+
         $updateForm4->update([
             'cong_tien_hang' => $request->form4_congtienhang,
             'thue_suat_gtgt' => $request->form4_thuegtgt,
@@ -178,15 +190,23 @@ class id_2_Controller extends Controller
         }
         //update form 5
         $updateform5 = Form5_MD::find($invoice->form5_id);
+        $form5 = $updateform5;
+
         $updateform5->update([
             'nguoi_chuyen_doi' => $request->form5_nguoichuyen,
             'nguoi_mua_hang' => $request->form5_nguoimua,
             'nguoi_ban_hang' => $request->form5_ngban,
             'ngay_chuyen_doi' => $request->form5_ngaychuyen
         ]);
+        $data = $invoice;
+
+
         if ($request->save_export) {
-            $pdf = PDF::loadview('pdf.test', compact('updateForm1', 'updateForm2', 'updateForm3', 'updateForm4', 'updateform5', 'updateInvoiceDetail'))->setOptions(['defaultFont' => 'Helvetica']);
+            $pdf = PDF::loadview('id2.update', compact('form1', 'form2', 'form3', 'form4', 'form5', 'data'))->setOptions(['defaultFont' => 'sans-serif']);
+            $pdf = PDF::loadview('pdf.test', compact('updateForm1', 'updateForm2', 'updateForm3', 'updateForm4', 'updateform5', 'updateInvoiceDetail'))->setPaper('a4')->setOptions(['defaultFont' => 'sans-serif']);
             return $pdf->download('invoice.pdf');
+            // return Excel::download(new InvoiceExportPDF($data, $form1, $form2, $form3, $form4, $form5), 'invoices.pdf');
+            // return (new InvoiceExportPDF($data, $form1, $form2, $form3, $form4, $form5))->download('invoices.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
         }
         $invoiceDetails = Invoice_Items_MD::where('form4_id', $invoice->form4_id)->get();
         if (($updateForm1 && $updateForm2) && ($updateForm3 && $updateForm4) && ($updateform5 && $updateInvoiceDetail)) {

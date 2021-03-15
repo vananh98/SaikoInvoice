@@ -252,8 +252,8 @@
                 $("<tr class='custom-tr count-tr'>" + "<th class='border-custome'>" + stt + "</th>" +
                         "<td class='border-custome'> <input type='text' autocomplete='off' class='form-control' list='tenhang' onkeyup='getTenhang(this)' name='form4_tenhang[]' value=''><datalist id='tenhang'></datalist></td>" +
                         "<td class='border-custome'><input type='text' autocomplete='off' class='form-control' list='dvt' onkeyup='getDVT(this)' name='form4_dvt[]' value=''><datalist id='dvt'></datalist></td>" +
-                        "<td class='border-custome'><input type='text' autocomplete='off' class='form-control'list='soluong' onkeyup='getSL(this)' name='form4_soluong[]' onchange='updateTotal(this)' value=''><datalist id='soluong'></datalist></td>" +
-                        "<td class='border-custome'><input type='text' autocomplete='off' class='form-control' list='dongia' onkeyup='getGia(this)' name='form4_dongia[]' onchange='updateTotal(this)' value=''><datalist id='dongia'></datalist></td>" +
+                        "<td class='border-custome'><input type='text' autocomplete='off' class='form-control'list='soluong'  name='form4_soluong[]' onchange='updateTotal(this)' value=''><datalist id='soluong'></datalist></td>" +
+                        "<td class='border-custome'><input type='text' autocomplete='off' class='form-control' list='dongia'  name='form4_dongia[]' onchange='updateTotal(this)' value=''><datalist id='dongia'></datalist></td>" +
                         "<td class='border-custome'><input type='text' autocomplete='off' readonly class='form-control unset-border-input total' name='form4_thanhtien[]'value=''></td>" +
                         "<td class='border-custome'> </td>" +
                         "/tr>")
