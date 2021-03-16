@@ -256,7 +256,7 @@
                         "<td class='border-custome'><input type='text' autocomplete='off' class='form-control'list='soluong'  name='form4_soluong[]' onchange='updateTotal(this)' value=''><datalist id='soluong'></datalist></td>" +
                         "<td class='border-custome'><input type='text' autocomplete='off' class='form-control' list='dongia'  name='form4_dongia[]' onchange='updateTotal(this)' value=''><datalist id='dongia'></datalist></td>" +
                         "<td class='border-custome'><input type='text' autocomplete='off' readonly class='form-control unset-border-input total' name='form4_thanhtien[]'value=''></td>" +
-                        "<td class='border-custome'><button type='button' onclick='removeRow(this)' class='btn btn-danger'><i class='fas fa-minus'></i></button> <input type='text' value='' hidden> </td>" +
+                        "<td class='border-custome'><button type='button' onclick='removeRow(this)' class='btn btn-default'><i class='fas fa-minus'></i></button> <input type='text' value='' hidden> </td>" +
                         "/tr>")
                     .insertBefore($("#congtienhang"))
                 var elements2 = document.getElementsByClassName('tenhang_class')

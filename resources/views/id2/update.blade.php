@@ -5,17 +5,20 @@
 @section('header')
     @include('main-id2.header')
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"
+    integrity="sha256-c9vxcXyAG4paArQG3xk6DjyW/9aHxai2ef9RpMWO44A=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
     <div class="container-fluid">
         <div class="col-lg-12 mb-4">
             <div class="card shadow mb-4">
-                <div class="p-5">
+                <div id="content2" class="p-5">
                     <div class="container col-lg-10 text-primary">
                         @if (session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
                             </div>
                         @endif
-                        <h5>Cập nhật hoá đơn</h5>
                     </div>
                     <div class="container border p-1 exportPDF" style="border: 1px solid  black !important">
                         <form action="{{ route('id2.update', ['id2' => $data->id]) }}" method="POST"
@@ -257,7 +260,7 @@
                                                 <span><i style="font-weight: normal !important">(Amount)</i></span>
                                             </th>
                                             <th scope="col" class="border-custome">
-                                                <button type="button" class="btn btn-primary addRow">+
+                                                <button type="button" class="btn btn-default addRow">+
                                                 </button>
                                             </th>
                                         </tr>
@@ -292,7 +295,7 @@
                                                         class="form-control unset-border-input total"
                                                         name="form4_thanhtien[]" value="{{ $item->thanh_tien }}"></td>
                                                 <td class="border-custome"><button type="button" onclick="removeRow(this)"
-                                                        class="btn btn-danger"><i class="fas fa-minus"></i></button>
+                                                        class="btn btn-default"><i class="fas fa-minus"></i></button>
                                                     <input type="text" value="{{ $item->id }}" hidden>
                                                 </td>
                                             </tr>
@@ -431,23 +434,30 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-4 ">
-                                    <button class="btn btn-primary float-right" name="save" value="1">Lưu</button>
-                                </div>
-                                <div class="col-lg-4">
-                                    <button class="btn btn-success float-right" id="exportPDF" name="save_export"
-                                        value="1">Lưu & Xuất
-                                        PDF</button>
-                                </div>
-                                <div class="col-lg-4 ">
-                                    <button class="btn btn-primary float-right" value="1">Xuất PDF</button>
-                                </div>
-                            </div>
                         </form>
                     </div>
                 </div>
+                    <div class="row">
+                        <div class="col-sm-12 ml-2">
+                            <button class="btn btn-primary" name="save" value="1">Lưu</button>
+                            <button class="btn btn-success ml-2" id="exportPDF" name="save_export"
+                                value="1">Lưu & Xuất
+                                PDF</button>
+                            <button id="downloadPDF" class="btn btn-primary ml-2">Xuất PDF</button>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
+<script>
+$('#downloadPDF').click(function () {
+    domtoimage.toPng(document.getElementById('content2'))
+        .then(function (blob) {
+            var pdf = new jsPDF('p', 'pt', [$('#content2').width(), $('#content2').height()]);
+
+            pdf.addImage(blob, 'PNG', 0, 0, $('#content2').width(), $('#content2').height());
+            pdf.save("test.pdf");
+        });
+});
+</script>
 @endsection
