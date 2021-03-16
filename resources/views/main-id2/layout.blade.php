@@ -16,9 +16,10 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
     <!-- Custom styles for this template-->
     <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         b {
@@ -246,20 +247,342 @@
             $(".addRow").click(function() {
                 var obj = $(this).parent().parent()
                 var count = $(".count-tr").length
-                console.log(count)
                 stt = count + 1
 
-                $("<tr class='custom-tr count-tr'>" + "<th class='border-custome'>" + stt + "</th>" +
-                        "<td class='border-custome'> <input type='text' autocomplete='off' class='form-control' list='tenhang' onkeyup='getTenhang(this)' name='form4_tenhang[]' value=''><datalist id='tenhang'></datalist></td>" +
-                        "<td class='border-custome'><input type='text' autocomplete='off' class='form-control' list='dvt' onkeyup='getDVT(this)' name='form4_dvt[]' value=''><datalist id='dvt'></datalist></td>" +
+                $("<tr class='custom-tr count-tr'>" + "<th class='border-custome stt'>" + stt +
+                        "</th>" +
+                        "<td class='border-custome'> <input type='text' autocomplete='off' class='form-control tenhang_class' list='tenhang' onkeyup='getTenhang(this)' name='form4_tenhang[]' value=''><datalist id='tenhang'></datalist></td>" +
+                        "<td class='border-custome'><input type='text' autocomplete='off' class='form-control dvt_class' list='dvt' onkeyup='getDVT(this)' name='form4_dvt[]' value=''><datalist id='dvt'></datalist></td>" +
                         "<td class='border-custome'><input type='text' autocomplete='off' class='form-control'list='soluong'  name='form4_soluong[]' onchange='updateTotal(this)' value=''><datalist id='soluong'></datalist></td>" +
                         "<td class='border-custome'><input type='text' autocomplete='off' class='form-control' list='dongia'  name='form4_dongia[]' onchange='updateTotal(this)' value=''><datalist id='dongia'></datalist></td>" +
                         "<td class='border-custome'><input type='text' autocomplete='off' readonly class='form-control unset-border-input total' name='form4_thanhtien[]'value=''></td>" +
-                        "<td class='border-custome'> </td>" +
+                        "<td class='border-custome'><button type='button' onclick='removeRow(this)' class='btn btn-default'><i class='fas fa-minus'></i></button> <input type='text' value='' hidden> </td>" +
                         "/tr>")
                     .insertBefore($("#congtienhang"))
+                var elements2 = document.getElementsByClassName('tenhang_class')
+                for (var i = 0; i < elements2.length; i++) {
+                    elements2[i].addEventListener('input', (e) => {
+                        var input = e.target,
+                            val = input.value;
+                        options = document.getElementById('tenhang').childNodes;
 
+                        for (var i = 0; i < options.length; i++) {
+                            if (options[i].innerText === val) {
+                                $('.tenhang_class').blur();
+                                break;
+                            }
+                        }
+                    });
+                }
+                //dvt
+                var elements3 = document.getElementsByClassName('dvt_class')
+                for (var i = 0; i < elements3.length; i++) {
+                    elements3[i].addEventListener('input', (e) => {
+                        var input = e.target,
+                            val = input.value;
+                        options = document.getElementById('dvt').childNodes;
+
+                        for (var i = 0; i < options.length; i++) {
+                            if (options[i].innerText === val) {
+                                $('.dvt_class').blur();
+                                break;
+                            }
+                        }
+                    });
+                }
             })
+            //dvbh
+            document.getElementById('dvbh_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('dvbh').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#dvbh_id').blur();
+                        break;
+                    }
+                }
+            });
+            //ms
+            document.getElementById('ms_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('mau_so').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#ms_id').blur();
+                        break;
+                    }
+                }
+            });
+            //tieude
+            document.getElementById('tieude_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('tieude').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#tieude_id').blur();
+                        break;
+                    }
+                }
+            });
+            //noidung_id
+            document.getElementById('noidung_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('noidung').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#noidung_id').blur();
+                        break;
+                    }
+                }
+            });
+            //mstform2
+            document.getElementById('mst_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('mst').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#mst_id').blur();
+                        break;
+                    }
+                }
+            });
+            //dia chi
+            document.getElementById('dc_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('dc').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#dc_id').blur();
+                        break;
+                    }
+                }
+            });
+            //điện thoại
+            document.getElementById('dt_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('dt').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#dt_id').blur();
+                        break;
+                    }
+                }
+            });
+            //số tài khoản
+            document.getElementById('stk_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('stk').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#stk_id').blur();
+                        break;
+                    }
+                }
+            });
+            //ngân hàng
+            document.getElementById('nh_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('nh').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#nh_id').blur();
+                        break;
+                    }
+                }
+            });
+            //buyer
+            document.getElementById('buyer_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('buyer').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#buyer_id').blur();
+                        break;
+                    }
+                }
+            });
+            //cpn
+            document.getElementById('cpn_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('cpn').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#cpn_id').blur();
+                        break;
+                    }
+                }
+            });
+            //tax
+            document.getElementById('tax_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('tax').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#tax_id').blur();
+                        break;
+                    }
+                }
+            });
+            //address
+            document.getElementById('address_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('address').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#address_id').blur();
+                        break;
+                    }
+                }
+            });
+            //pm
+            document.getElementById('pm_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('pm').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#pm_id').blur();
+                        break;
+                    }
+                }
+            });
+            //account
+            document.getElementById('accountNo_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('accountNo').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#accountNo_id').blur();
+                        break;
+                    }
+                }
+            });
+            //ghichu
+            document.getElementById('ghichu_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('ghichu').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#ghichu_id').blur();
+                        break;
+                    }
+                }
+            });
+            //người chuyển đổi
+            document.getElementById('nguoichuyen_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('nguoichuyen').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#nguoichuyen_id').blur();
+                        break;
+                    }
+                }
+            });
+            //người mua hàng
+            document.getElementById('nguoimua_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('nguoimua').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#nguoimua_id').blur();
+                        break;
+                    }
+                }
+            });
+            //người bán hàng
+            document.getElementById('nguoiban_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('nguoiban').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#nguoiban_id').blur();
+                        break;
+                    }
+                }
+            });
+            //ngày chuyển đổi
+            document.getElementById('ngaychuyen_id').addEventListener('input', (e) => {
+                var input = e.target,
+                    val = input.value;
+                options = document.getElementById('ngaychuyen').childNodes;
+
+                for (var i = 0; i < options.length; i++) {
+                    if (options[i].innerText === val) {
+                        $('#ngaychuyen_id').blur();
+                        break;
+                    }
+                }
+            });
+            //tenhang
+            var elements = document.getElementsByClassName('tenhang_class')
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].addEventListener('input', (e) => {
+                    var input = e.target,
+                        val = input.value;
+                    options = document.getElementById('tenhang').childNodes;
+
+                    for (var i = 0; i < options.length; i++) {
+                        if (options[i].innerText === val) {
+                            $('.tenhang_class').blur();
+                            break;
+                        }
+                    }
+                });
+            }
+            //dvt
+            var elements = document.getElementsByClassName('dvt_class')
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].addEventListener('input', (e) => {
+                    var input = e.target,
+                        val = input.value;
+                    options = document.getElementById('dvt').childNodes;
+
+                    for (var i = 0; i < options.length; i++) {
+                        if (options[i].innerText === val) {
+                            $('.dvt_class').blur();
+                            break;
+                        }
+                    }
+                });
+            }
         })
 
         function updateTotal(a) {
@@ -290,45 +613,54 @@
             $("#tongtienthanhtoan").val(parseInt(tienthue.val()) + parseInt($("#congtienhang2").val()))
         }
         //DVBH
-        function getDVBH(obj) {
+        function getDVBH(obj, a, b, c) {
             var char = obj.value;
-            $.ajax({
-                type: "GET",
-                url: "{{ route('getDVBH') }}",
-                data: {
-                    char: char
-                },
-                error: function(res) {
-                    console.log(res)
-                },
-                success: function(response) {
-                    $("#dvbh").empty()
-                    $.each(response, function(index, value) {
-                        $("#dvbh").append(new Option(value.don_vi_ban_hang))
-                    })
-                }
-            })
+            if (char.length >= 1) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getDVBH') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $("#dvbh").empty()
+                        $.each(response, function(index, value) {
+                            let option = new Option(value.don_vi_ban_hang);
+
+                            option.setAttribute("class", "dvbh-option");
+
+                            $("#dvbh").append(option)
+                        })
+                    }
+                })
+            }
         }
         //form2
         //Mã số thuế
         function getMSt(obj) {
             var char = obj.value;
-            $.ajax({
-                type: "GET",
-                url: "{{ route('getMST') }}",
-                data: {
-                    char: char
-                },
-                error: function(res) {
-                    console.log(res)
-                },
-                success: function(response) {
-                    $("#mst").empty()
-                    $.each(response, function(index, value) {
-                        $("#mst").append(new Option(value.ma_so_thue))
-                    })
-                }
-            })
+            if (char.length >= 1) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('getMST') }}",
+                    data: {
+                        char: char
+                    },
+                    error: function(res) {
+                        console.log(res)
+                    },
+                    success: function(response) {
+                        $("#mst").empty()
+                        $.each(response, function(index, value) {
+                            $("#mst").append(new Option(value.ma_so_thue))
+                        })
+                    }
+                })
+            }
+
         }
 
         //Địa chỉ
@@ -829,6 +1161,33 @@
                 }
             })
         }
+
+        function removeRow(obj) {
+
+            if (!confirm('Are you sure?')) {
+                return false
+            }
+            var id = ($(obj).parent().children().eq(1).val())
+            $.ajax({
+                type: "GET",
+                url: "./remove/" + id,
+                success: function(res) {
+                    console.log(res)
+                }
+            });
+
+            ($(obj).parent().parent().remove())
+            var countTr = $(".count-tr").length
+            var tr = $(".count-tr")
+            for (var i = 0; i <= countTr; i++) {
+                $.each(tr, function(index, value) {
+                    $(value).children().eq(0).text(++i)
+                })
+            }
+            // console.log(countTr)
+            updateTotal()
+        }
+
 
     </script>
 </body>

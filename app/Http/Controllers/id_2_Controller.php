@@ -209,7 +209,7 @@ class id_2_Controller extends Controller
             // return (new InvoiceExportPDF($data, $form1, $form2, $form3, $form4, $form5))->download('invoices.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
         }
         $invoiceDetails = Invoice_Items_MD::where('form4_id', $invoice->form4_id)->get();
-        if (($updateForm1 && $updateForm2) && ($updateForm3 && $updateForm4) && ($updateform5 && $updateInvoiceDetail)) {
+        if (($updateForm1 || $updateForm2) || ($updateForm3 || $updateForm4) || ($updateform5 || $updateInvoiceDetail)) {
             if ($request->save) {
                 return back()->with('success', 'Cập nhật thành công');
             }
@@ -368,5 +368,13 @@ class id_2_Controller extends Controller
     {
         $data =  Form5_MD::where('ngay_chuyen_doi', 'like', '%' . $request->char . '%')->select('ngay_chuyen_doi')->distinct()->limit(10)->get();
         return response()->json($data);
+    }
+    //form invoice_details
+    public function deleteItem($id){
+        $check = Invoice_Items_MD::destroy($id);
+        if($check){
+            return 1;
+        }
+        return 0;
     }
 }
