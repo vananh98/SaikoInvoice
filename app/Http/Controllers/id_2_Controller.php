@@ -202,8 +202,8 @@ class id_2_Controller extends Controller
 
 
         if ($request->save_export) {
-            $pdf = PDF::loadview('id2.update', compact('form1', 'form2', 'form3', 'form4', 'form5', 'data'))->setOptions(['defaultFont' => 'sans-serif']);
-            $pdf = PDF::loadview('pdf.test', compact('updateForm1', 'updateForm2', 'updateForm3', 'updateForm4', 'updateform5', 'updateInvoiceDetail'))->setPaper('a4')->setOptions(['defaultFont' => 'sans-serif']);
+            // $pdf = PDF::loadview('id2.update', compact('form1', 'form2', 'form3', 'form4', 'form5', 'data'))->setOptions(['defaultFont' => 'sans-serif']);
+            $pdf = PDF::loadview('pdf.test2', compact('updateForm1', 'updateForm2', 'updateForm3', 'updateForm4', 'updateform5', 'updateInvoiceDetail'))->setPaper('a4')->setOptions(['defaultFont' => 'sans-serif']);
             return $pdf->download('invoice.pdf');
             // return Excel::download(new InvoiceExportPDF($data, $form1, $form2, $form3, $form4, $form5), 'invoices.pdf');
             // return (new InvoiceExportPDF($data, $form1, $form2, $form3, $form4, $form5))->download('invoices.pdf', \Maatwebsite\Excel\Excel::DOMPDF);

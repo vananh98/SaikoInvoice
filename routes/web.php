@@ -55,7 +55,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('get-dvt', 'id_2_Controller@getDVT')->name('getDVT');
     Route::get('get-soluong', 'id_2_Controller@getSL')->name('getSL');
     Route::get('get-dongia', 'id_2_Controller@getPrice')->name('getPrice');
-    Route::get('pdf',function(){
-        return view('pdf.test');
+    Route::get('pdf', function () {
+        return view('pdf.test2');
     });
 });

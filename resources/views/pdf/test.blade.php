@@ -103,7 +103,7 @@
             <table>
                 <tbody>
                     <tr>
-                        <td class="font-size" colspan="1" style="width:20% !important">Đơn vị bán hàng <i>(Issued):</i>
+                        <td class="font-size" colspan="2" style="width:5% !important">Đơn vị bán hàng <i>(Issued):</i>
                         </td>
                         <td class="font-size " colspan="3">Đơn vị bán hàng Đơn vị bán hàng Đơn vị bán hàng Đơn vị bán
                             hàng Đơn vị bán hàng Đơn vị bán hàng Đơn vị bán hàng Đơn vị bán hàng Đơn vị bán hàng
