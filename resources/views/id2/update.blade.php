@@ -9,6 +9,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"
     integrity="sha256-c9vxcXyAG4paArQG3xk6DjyW/9aHxai2ef9RpMWO44A=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+<script src="https://unpkg.com/pdf-lib@1.4.0"></script>
+    <script src="https://unpkg.com/downloadjs@1.4.7"></script>
     <div class="container-fluid">
         <div class="col-lg-12 mb-4">
             <div class="card shadow mb-4">
@@ -444,17 +446,26 @@
                                 value="1">Lưu & Xuất
                                 PDF</button>
                             <button id="downloadPDF" class="btn btn-primary ml-2">Xuất PDF</button>
+                            <button id="downloadImage" class="btn btn-primary ml-2">Xuất Image</button>
                         </div>
                     </div>
             </div>
         </div>
     </div>
 <script>
+$('#downloadImage').click(function () {
+    domtoimage.toPng(document.getElementById('content2'))
+        .then(function (blob) {
+        const downloadLink = document.createElement("a");
+        downloadLink.href = blob;
+        downloadLink.download = 'fileName';
+        downloadLink.click();
+        });
+});
 $('#downloadPDF').click(function () {
     domtoimage.toPng(document.getElementById('content2'))
         .then(function (blob) {
             var pdf = new jsPDF('p', 'pt', [$('#content2').width(), $('#content2').height()]);
-
             pdf.addImage(blob, 'PNG', 0, 0, $('#content2').width(), $('#content2').height());
             pdf.save("test.pdf");
         });
