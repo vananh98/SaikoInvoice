@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Id_1_Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,5 +60,11 @@ Route::prefix('/')->middleware('auth')->group(function () {
         return view('pdf.test2');
     });
     //invoice_details
-    Route::get('remove','id_2_Controller@deleteItem')->name('deleteItem');
+    Route::get('remove', 'id_2_Controller@deleteItem')->name('deleteItem');
+    Route::get('logout', function () {
+        if (Auth::check()) {
+            Auth::logout();
+            return redirect()->route('login.index');
+        }
+    })->name('logout');
 });

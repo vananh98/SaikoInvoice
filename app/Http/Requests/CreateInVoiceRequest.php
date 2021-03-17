@@ -25,7 +25,6 @@ class CreateInVoiceRequest extends FormRequest
     {
         return [
             'tittle' => 'required',
-            'file' => 'required|image|mimes:png,jpg,jpeg,pdf'
         ];
     }
 }
