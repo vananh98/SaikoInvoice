@@ -468,10 +468,14 @@
                 });
         });
         $('#downloadPDF').click(function() {
+            
             domtoimage.toPng(document.getElementById('content2'))
                 .then(function(blob) {
-                    var pdf = new jsPDF('p', 'pt', [$('#content2').width(), $('#content2').height()]);
-                    pdf.addImage(blob, 'PNG', -500, 0, $('#content2').width(), $('#content2').height());
+                    var pdf = new jsPDF("p", "pt", [$('#content2').width(), $('#content2').height()]);
+                    var width = pdf.internal.pageSize.width;
+                    var height = pdf.internal.pageSize.height;
+                    console.log(width)
+                    pdf.addImage(blob, 'PNG', 0, 0, width,height);
                     pdf.save("test.pdf");
                 });
         })
