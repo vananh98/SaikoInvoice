@@ -22,9 +22,10 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $i=0;?>
                             @foreach ($data as $item)
                                 <tr>
-                                    <th scope="row">1</th>
+                                    <th scope="row">{{++$i}}</th>
                                     <td>{{ $item->form1->tieu_de }}</td>
                                     <td>
                                         <a href="{{ route('id2.edit', ['id2' => $item->id]) }}">

@@ -21,9 +21,10 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $i=1; ?>
                             @foreach ($data as $item)
                                 <tr>
-                                    <th scope="row">1</th>
+                                    <th scope="row">{{$i++}}</th>
                                     <td>{{ $item->form1->tieu_de }}</td>
 
                                     <td>{{ $item->created_at }}</td>
