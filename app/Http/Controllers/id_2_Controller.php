@@ -210,9 +210,7 @@ class id_2_Controller extends Controller
         }
         $invoiceDetails = Invoice_Items_MD::where('form4_id', $invoice->form4_id)->get();
         if (($updateForm1 || $updateForm2) || ($updateForm3 || $updateForm4) || ($updateform5 || $updateInvoiceDetail)) {
-            if ($request->save) {
-                return back()->with('success', 'Cập nhật thành công');
-            }
+            return back()->with('success', 'Cập nhật thành công');
         } else {
             session()->flash('failed', "Cập nhật thất bại");
             return back()->with('failed', "Tạo mới lỗi");
@@ -370,9 +368,10 @@ class id_2_Controller extends Controller
         return response()->json($data);
     }
     //form invoice_details
-    public function deleteItem($id){
+    public function deleteItem($id)
+    {
         $check = Invoice_Items_MD::destroy($id);
-        if($check){
+        if ($check) {
             return 1;
         }
         return 0;
