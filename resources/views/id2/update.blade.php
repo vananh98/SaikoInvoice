@@ -443,8 +443,8 @@
                     <div class="col-sm-12 ml-2">
                         <a href="javascript:submitForm()"><button class="btn btn-primary" name="save"
                                 value="1">Lưu</button></a>
-                        <button class="btn btn-success ml-2" id="exportPDF" name="save_export" value="1">Lưu & Xuất
-                            PDF</button>
+                        {{-- <button class="btn btn-success ml-2" id="exportPDF" name="save_export" value="1">Lưu & Xuất
+                            PDF</button> --}}
                         <button id="downloadPDF" class="btn btn-primary ml-2">Xuất PDF</button>
                         <button id="downloadImage" class="btn btn-primary ml-2">Xuất Image</button>
                     </div>
@@ -461,6 +461,9 @@
             var name = $("#tieude_id").val()
             domtoimage.toPng(document.getElementById('content2'))
                 .then(function(blob) {
+                    if(name==""){
+                        name = "invoice"
+                    }
                     const downloadLink = document.createElement("a");
                     downloadLink.href = blob;
                     downloadLink.download = name;
@@ -476,6 +479,9 @@
                     var width = pdf.internal.pageSize.width;
                     var height = pdf.internal.pageSize.height;
                     // console.log(width)
+                    if(name==""){
+                        name = "invoice"
+                    }
                     pdf.addImage(blob, 'PNG', 0, 0, width, height);
                     pdf.save(name + ".pdf");
                 });
