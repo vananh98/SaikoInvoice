@@ -21,7 +21,7 @@ Route::post('/', 'AuthController@login')->name('login.login');
 
 Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/id1/view-create', 'Id_1_Controller@viewCreate')->name('viewCreate');
-    Route::get('/id1/view-list', 'Id_1_Controller@viewList')->name('viewCreate');
+    Route::get('/id1/view-list', 'Id_1_Controller@viewList')->name('viewList');
     Route::resource('/id1', 'Id_1_Controller');
     Route::resource('id2', 'id_2_Controller');
     //form2

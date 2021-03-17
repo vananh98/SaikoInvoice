@@ -18,7 +18,7 @@ class AuthController extends Controller
         if (Auth::attempt(['name' => $request->name, 'password' => $request->password], true)) {
 
             if (Auth::user()->id == 1) {
-                return view('id1.create');
+                return redirect()->route('id1.index');
             } else {
                 return redirect()->route('id2.index');
             }

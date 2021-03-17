@@ -50,6 +50,7 @@ class Id_1_Controller extends Controller
      */
     public function store(CreateInVoiceRequest $request)
     {
+        return "ok";
         $file = $request->file('file');
         $ext = $file->getClientOriginalExtension();
         $str = Str::random(40);

@@ -25,6 +25,7 @@ class CreateInVoiceRequest extends FormRequest
     {
         return [
             'tittle' => 'required',
+            'file' => 'required'
         ];
     }
 }

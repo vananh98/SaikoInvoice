@@ -461,7 +461,7 @@
             var name = $("#tieude_id").val()
             domtoimage.toPng(document.getElementById('content2'))
                 .then(function(blob) {
-                    if(name==""){
+                    if (name == "") {
                         name = "invoice"
                     }
                     const downloadLink = document.createElement("a");
@@ -479,7 +479,7 @@
                     var width = pdf.internal.pageSize.width;
                     var height = pdf.internal.pageSize.height;
                     // console.log(width)
-                    if(name==""){
+                    if (name == "") {
                         name = "invoice"
                     }
                     pdf.addImage(blob, 'PNG', 0, 0, width, height);
