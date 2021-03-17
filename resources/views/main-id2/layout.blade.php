@@ -242,9 +242,9 @@
     {{-- <script src="assets/js/demo/chart-area-demo.js"></script> --}}
     {{-- <script src="assets/js/demo/chart-pie-demo.js"></script> --}}
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var stt = 1
-            $(".addRow").click(function() {
+            $(".addRow").click(function () {
                 var obj = $(this).parent().parent()
                 var count = $(".count-tr").length
                 stt = count + 1
@@ -252,6 +252,7 @@
                 $("<tr class='custom-tr count-tr'>" + "<th class='border-custome stt'>" + stt +
                         "</th>" +
                         "<td class='border-custome'> <input type='text' autocomplete='off' class='form-control tenhang_class' list='tenhang' onkeyup='getTenhang(this)' name='form4_tenhang[]' value=''><datalist id='tenhang'></datalist></td>" +
+                        "<td class='border-custome'> <input type='text' autocomplete='off' class='form-control mahang_class' list='mahang' onkeyup='getTenhang(this)' name='form4_mahang[]' value=''><datalist id='mahang'></datalist></td>" +
                         "<td class='border-custome'><input type='text' autocomplete='off' class='form-control dvt_class' list='dvt' onkeyup='getDVT(this)' name='form4_dvt[]' value=''><datalist id='dvt'></datalist></td>" +
                         "<td class='border-custome'><input type='text' autocomplete='off' class='form-control'list='soluong'  name='form4_soluong[]' onchange='updateTotal(this)' value=''><datalist id='soluong'></datalist></td>" +
                         "<td class='border-custome'><input type='text' autocomplete='off' class='form-control' list='dongia'  name='form4_dongia[]' onchange='updateTotal(this)' value=''><datalist id='dongia'></datalist></td>" +
@@ -259,6 +260,22 @@
                         "<td class='border-custome'><button type='button' onclick='removeRow(this)' class='btn btn-default'><i class='fas fa-minus'></i></button> <input type='text' value='' hidden> </td>" +
                         "/tr>")
                     .insertBefore($("#congtienhang"))
+                //ma hang
+                var elements2 = document.getElementsByClassName('mahang_class')
+                for (var i = 0; i < elements2.length; i++) {
+                    elements2[i].addEventListener('input', (e) => {
+                        var input = e.target,
+                            val = input.value;
+                        options = document.getElementById('mahang').childNodes;
+
+                        for (var i = 0; i < options.length; i++) {
+                            if (options[i].innerText === val) {
+                                $('.mahang_class').blur();
+                                break;
+                            }
+                        }
+                    });
+                }
                 var elements2 = document.getElementsByClassName('tenhang_class')
                 for (var i = 0; i < elements2.length; i++) {
                     elements2[i].addEventListener('input', (e) => {
@@ -586,10 +603,11 @@
         })
 
         function updateTotal(a) {
-            var qty = $(a).parent().parent().children().children().eq(4).val()
-            var price = $(a).parent().parent().children().children().eq(6).val()
+            var qty = $(a).parent().parent().children().children().eq(6).val()
+            var price = $(a).parent().parent().children().children().eq(8).val()
+
             var total
-            var tdTotal = $(a).parent().parent().children().find('input').eq(4)
+            var tdTotal = $(a).parent().parent().children().find('input').eq(5)
             var sum = 0;
             var thue = $("#thuegtgt").val();
             var tienthue = $("#tienthuegtgt");
@@ -601,7 +619,7 @@
             $("#dvt").empty()
             $("#soluong").empty()
             $("#dongia").empty()
-            $.each($(".total"), function(index, value) {
+            $.each($(".total"), function (index, value) {
                 parse = value.value
                 parse = parseFloat(parse)
                 sum += parse
@@ -621,12 +639,12 @@
                     data: {
                         char: char
                     },
-                    error: function(res) {
+                    error: function (res) {
                         console.log(res)
                     },
-                    success: function(response) {
+                    success: function (response) {
                         $("#dvbh").empty()
-                        $.each(response, function(index, value) {
+                        $.each(response, function (index, value) {
                             let option = new Option(value.don_vi_ban_hang);
 
                             option.setAttribute("class", "dvbh-option");
@@ -648,12 +666,12 @@
                     data: {
                         char: char
                     },
-                    error: function(res) {
+                    error: function (res) {
                         console.log(res)
                     },
-                    success: function(response) {
+                    success: function (response) {
                         $("#mst").empty()
-                        $.each(response, function(index, value) {
+                        $.each(response, function (index, value) {
                             $("#mst").append(new Option(value.ma_so_thue))
                         })
                     }
@@ -671,12 +689,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#dc").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#dc").append(new Option(value.dia_chi))
                     })
                 }
@@ -691,12 +709,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#dt").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         console.log(value)
                         $("#dt").append(new Option(value.dien_thoai))
                     })
@@ -713,12 +731,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#stk").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#stk").append(new Option(value.so_tai_khoan))
                     })
                 }
@@ -733,12 +751,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#nh").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#nh").append(new Option(value.ngan_hang))
                     })
                 }
@@ -755,12 +773,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#buyer").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#buyer").append(new Option(value.ho_ten_nguoi_mua))
                     })
                 }
@@ -777,12 +795,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#ghichu").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#ghichu").append(new Option(value.ghi_chu))
                     })
                 }
@@ -799,12 +817,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#cpn").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#cpn").append(new Option(value.ten_don_vi))
                     })
                 }
@@ -821,12 +839,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#tax").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#tax").append(new Option(value.ma_so_thue))
                     })
                 }
@@ -843,12 +861,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#address").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         console.log(value)
                         $("#address").append(new Option(value.dia_chi))
                     })
@@ -866,12 +884,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#pm").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#pm").append(new Option(value.hinh_thuc_thanh_toan))
                     })
                 }
@@ -887,12 +905,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#accountNo").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#accountNo").append(new Option(value.so_tai_khoan))
                     })
                 }
@@ -909,12 +927,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#tenhang").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#tenhang").append(new Option(value.ten_hang_hoa_dich_vu))
                     })
                 }
@@ -929,12 +947,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#noidung").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#noidung").append(new Option(value.noi_dung))
                     })
                 }
@@ -949,12 +967,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#kyhieu").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#kyhieu").append(new Option(value.ky_hieu))
                     })
                 }
@@ -969,12 +987,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#mau_so").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#mau_so").append(new Option(value.mau_so))
                     })
                 }
@@ -989,12 +1007,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#soNo").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#soNo").append(new Option(value.so))
                     })
                 }
@@ -1009,12 +1027,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#dvt").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#dvt").append(new Option(value.don_vi_tinh))
                     })
                 }
@@ -1029,12 +1047,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#soluong").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#soluong").append(new Option(value.so_luong))
                     })
                 }
@@ -1049,12 +1067,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#dongia").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#dongia").append(new Option(value.don_gia))
                     })
                 }
@@ -1069,12 +1087,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#nguoichuyen").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#nguoichuyen").append(new Option(value.nguoi_chuyen_doi))
                     })
                 }
@@ -1089,12 +1107,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#nguoimua").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#nguoimua").append(new Option(value.nguoi_mua_hang))
                     })
                 }
@@ -1109,12 +1127,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#nguoiban").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#nguoiban").append(new Option(value.nguoi_ban_hang))
                     })
                 }
@@ -1129,12 +1147,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#ngaychuyen").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#ngaychuyen").append(new Option(value.ngay_chuyen_doi))
                     })
                 }
@@ -1149,12 +1167,12 @@
                 data: {
                     char: char
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(response) {
+                success: function (response) {
                     $("#tieude").empty()
-                    $.each(response, function(index, value) {
+                    $.each(response, function (index, value) {
                         $("#tieude").append(new Option(value.tieu_de))
                     })
                 }
@@ -1181,10 +1199,10 @@
                     tienthue: tienthue,
                     tongtien: tongtien
                 },
-                error: function(res) {
+                error: function (res) {
                     console.log(res)
                 },
-                success: function(res) {
+                success: function (res) {
                     console.log(res)
                 }
             });
@@ -1193,7 +1211,7 @@
             var countTr = $(".count-tr").length
             var tr = $(".count-tr")
             for (var i = 0; i <= countTr; i++) {
-                $.each(tr, function(index, value) {
+                $.each(tr, function (index, value) {
                     $(value).children().eq(0).text(++i)
                 })
             }
