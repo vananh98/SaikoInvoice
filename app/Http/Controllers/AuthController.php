@@ -23,6 +23,7 @@ class AuthController extends Controller
                 return redirect()->route('id2.index');
             }
         } else {
+            session()->flash('failed','tên hoặc mật khẩu sai');
             return back();
         }
     }
