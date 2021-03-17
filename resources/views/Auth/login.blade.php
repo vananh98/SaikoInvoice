@@ -44,17 +44,17 @@
                                             @csrf
                                             <div class="form-group">
                                                 <input type="text" name="name" class="form-control form-control-user"
-                                                    id="exampleInputEmail" aria-describedby="emailHelp"
+                                                    id="" aria-describedby="emailHelp"
                                                     placeholder="Nhập tài khoản...">
                                             </div>
                                             <div class="form-group">
                                                 <input type="password" name="password"
-                                                    class="form-control form-control-user" id="exampleInputPassword"
+                                                    class="form-control form-control-user" 
                                                     placeholder="Nhạp mật khẩu">
                                             </div>
                                             <div class="form-group">
                                                 <input type="submit" value="Đăng nhập"
-                                                    class="form-control  btn btn-primary" id="exampleInputPassword"
+                                                    class="form-control  btn btn-primary" 
                                                     placeholder="Nhạp mật khẩu">
                                             </div>
 
