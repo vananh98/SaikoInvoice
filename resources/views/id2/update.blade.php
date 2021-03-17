@@ -468,15 +468,16 @@
                 });
         });
         $('#downloadPDF').click(function() {
-            
+
             domtoimage.toPng(document.getElementById('content2'))
                 .then(function(blob) {
+                    var name = $("#tieude_id").val()
                     var pdf = new jsPDF("p", "pt", [$('#content2').width(), $('#content2').height()]);
                     var width = pdf.internal.pageSize.width;
                     var height = pdf.internal.pageSize.height;
-                    console.log(width)
-                    pdf.addImage(blob, 'PNG', 0, 0, width,height);
-                    pdf.save("test.pdf");
+                    // console.log(width)
+                    pdf.addImage(blob, 'PNG', 0, 0, width, height);
+                    pdf.save(name + ".pdf");
                 });
         })
 
