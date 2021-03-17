@@ -59,5 +59,5 @@ Route::prefix('/')->middleware('auth')->group(function () {
         return view('pdf.test2');
     });
     //invoice_details
-    Route::get('remove/{id}','id_2_Controller@deleteItem')->name('deleteItem');
+    Route::get('remove','id_2_Controller@deleteItem')->name('deleteItem');
 });

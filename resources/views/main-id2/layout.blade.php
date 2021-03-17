@@ -597,20 +597,19 @@
             var parse;
             total = qty * price; //tính value
             tdTotal.val(total) //set value
-            console.log(price)
             $("#tenhang").empty()
             $("#dvt").empty()
             $("#soluong").empty()
             $("#dongia").empty()
             $.each($(".total"), function(index, value) {
                 parse = value.value
-                parse = parseInt(parse)
+                parse = parseFloat(parse)
                 sum += parse
             })
-            $("#congtienhang2").val(sum)
+            $("#congtienhang2").val(sum.toFixed(3))
             tinhtienthue = $("#congtienhang2").val() / 100 * thue
-            tienthue.val(tinhtienthue)
-            $("#tongtienthanhtoan").val(parseInt(tienthue.val()) + parseInt($("#congtienhang2").val()))
+            tienthue.val(parseFloat(tinhtienthue).toFixed(3))
+            $("#tongtienthanhtoan").val(parseFloat(tienthue.val()) + parseFloat($("#congtienhang2").val()))
         }
         //DVBH
         function getDVBH(obj, a, b, c) {
@@ -1168,9 +1167,23 @@
                 return false
             }
             var id = ($(obj).parent().children().eq(1).val())
+            var cth = $("#congtienhang2").val()
+            var thue = $("#thuegtgt").val()
+            var tienthue = $("#tienthuegtgt").val();
+            var tongtien = $("#tongtienthanhtoan").val()
             $.ajax({
                 type: "GET",
-                url: "./remove/" + id,
+                url: "./remove",
+                data: {
+                    id: id,
+                    cth: cth,
+                    thue: thue,
+                    tienthue: tienthue,
+                    tongtien: tongtien
+                },
+                error: function(res) {
+                    console.log(res)
+                },
                 success: function(res) {
                     console.log(res)
                 }
@@ -1185,9 +1198,8 @@
                 })
             }
             // console.log(countTr)
-            updateTotal()
+            updateTotal(this)
         }
-
 
     </script>
 </body>

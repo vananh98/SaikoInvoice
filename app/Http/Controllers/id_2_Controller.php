@@ -368,12 +368,28 @@ class id_2_Controller extends Controller
         return response()->json($data);
     }
     //form invoice_details
-    public function deleteItem($id)
+    public function deleteItem(Request $request)
     {
-        $check = Invoice_Items_MD::destroy($id);
-        if ($check) {
-            return 1;
+        // return response()->json($request->all());
+        if ($request->id) {
+            $findForm = Invoice_Items_MD::find($request->id)->form4_id;
+            $form4 = Form4_MD::find($findForm);
+            $check = Invoice_Items_MD::destroy($request->id);
+            $cth = $form4->invoice_details->sum('thanh_tien');
+
+            $thue  = $form4->thue_suat_gtgt;
+            $tienthue = $cth / 100 * $thue;
+
+            $check2 = $form4->update([
+                'cong_tien_hang' => $cth,
+                'tien_thue_gtgt' => $tienthue,
+                'tong_cong_tien_thanh_toan' => $cth + $tienthue
+            ]);
+            // return dd($check2);
+            if ($check2) {
+                return 1;
+            }
+            return 0;
         }
-        return 0;
     }
 }

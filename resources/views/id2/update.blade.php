@@ -9,17 +9,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"
         integrity="sha256-c9vxcXyAG4paArQG3xk6DjyW/9aHxai2ef9RpMWO44A=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+    <script src="https://unpkg.com/pdf-lib@1.4.0"></script>
+    <script src="https://unpkg.com/downloadjs@1.4.7"></script>
     <div class="container-fluid">
         <div class="col-lg-12 mb-4">
             <div class="card shadow mb-4">
+                <div class="container col-lg-10 text-primary">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                </div>
                 <div id="content2" class="p-5">
-                    <div class="container col-lg-10 text-primary">
-                        @if (session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-                    </div>
                     <div class="container border p-1 exportPDF" style="border: 1px solid  black !important">
                         <form name="formInvoice" action="{{ route('id2.update', ['id2' => $data->id]) }}" method="POST"
                             enctype="multipart/form-data">
@@ -439,29 +441,40 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12 ml-2">
-                        <a href="javascript: submitForm()"><button class="btn btn-primary" name="save"
+                        <a href="javascript:submitForm()"><button class="btn btn-primary" name="save"
                                 value="1">Lưu</button></a>
                         <button class="btn btn-success ml-2" id="exportPDF" name="save_export" value="1">Lưu & Xuất
                             PDF</button>
                         <button id="downloadPDF" class="btn btn-primary ml-2">Xuất PDF</button>
+                        <button id="downloadImage" class="btn btn-primary ml-2">Xuất Image</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
     <script>
         function submitForm() {
             document.forms["formInvoice"].submit();
         }
+        $('#downloadImage').click(function() {
+            var name = $("#tieude_id").val()
+            domtoimage.toPng(document.getElementById('content2'))
+                .then(function(blob) {
+                    const downloadLink = document.createElement("a");
+                    downloadLink.href = blob;
+                    downloadLink.download = name;
+                    downloadLink.click();
+                });
+        });
         $('#downloadPDF').click(function() {
             domtoimage.toPng(document.getElementById('content2'))
                 .then(function(blob) {
                     var pdf = new jsPDF('p', 'pt', [$('#content2').width(), $('#content2').height()]);
-
                     pdf.addImage(blob, 'PNG', 0, 0, $('#content2').width(), $('#content2').height());
                     pdf.save("test.pdf");
                 });
-        });
+        })
 
     </script>
 @endsection
