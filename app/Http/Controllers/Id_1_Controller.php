@@ -22,7 +22,7 @@ class Id_1_Controller extends Controller
     }
     public function viewList()
     {
-        $data = Invoice_MD::paginate(20);
+        $data = Invoice_MD::orderBy('created_at','Desc')->paginate(20);
 
         return view('id1.list', compact('data'));
     }

@@ -23,7 +23,7 @@ class id_2_Controller extends Controller
      */
     public function index()
     {
-        $data = Invoice_MD::paginate(20);
+        $data = Invoice_MD::orderBy('created_at','Desc')->paginate(20);
         return view('id2.index', compact('data'));
     }
 
