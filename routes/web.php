@@ -67,4 +67,5 @@ Route::prefix('/')->middleware('auth')->group(function () {
             return redirect()->route('login.index');
         }
     })->name('logout');
+    Route::get('get-mahang','id_2_Controller@getMahang')->name('getMahang');
 });

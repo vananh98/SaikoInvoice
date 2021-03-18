@@ -23,7 +23,7 @@ class id_2_Controller extends Controller
      */
     public function index()
     {
-        $data = Invoice_MD::orderBy('created_at','Desc')->paginate(20);
+        $data = Invoice_MD::orderBy('created_at', 'Desc')->paginate(20);
         return view('id2.index', compact('data'));
     }
 
@@ -73,11 +73,13 @@ class id_2_Controller extends Controller
         $form4 = Form4_MD::find($data->form4_id);
         $form5 = Form5_MD::find($data->form5_id);
         $arr = explode("-", $form1->ngay_thang_nam);
-
+        $date = $arr[0];
+        $month = $arr[1];
+        $year = $arr[2];
         if ((empty($arr[0]))) {
             return view('id2.update', compact('data', 'form1', 'form2', 'form3', 'form4', 'form5'));
         } else {
-            return view('id2.update', compact('data', 'form1', 'form2', 'form3', 'form4', 'form5', 'arr'));
+            return view('id2.update', compact('data', 'form1', 'form2', 'form3', 'form4', 'form5', 'date', 'month', 'year'));
         }
     }
 
@@ -141,49 +143,71 @@ class id_2_Controller extends Controller
         //update form invoice_details
         if (!($request->form4_tenhang == NULL)) {
             for ($i = 0; $i <= count($request->form4_tenhang) - 1; $i++) {
-                if ((!empty(Invoice_Items_MD::where('form4_id', $invoice->form4_id)->where('ten_hang_hoa_dich_vu', $request->form4_tenhang[$i])->get()->toArray()))) {
-                    $check  = Invoice_Items_MD::where('ten_hang_hoa_dich_vu', $request->form4_tenhang[$i])->where('form4_id', $invoice->form4_id)->first();
-                    if (!empty($check)) {
-                        if ($request->form4_tenhang[$i] == $check->ten_hang_hoa_dich_vu) {
-
-                            $updateInvoiceDetail = Invoice_Items_MD::where('ten_hang_hoa_dich_vu', $request->form4_tenhang[$i])->where('form4_id', $invoice->form4_id)->update([
-                                'form4_id' => $invoice->form4_id,
-                                'ten_hang_hoa_dich_vu' => $request->form4_tenhang[$i],
-                                'don_vi_tinh' => $request->form4_dvt[$i],
-                                'so_luong' => $request->form4_soluong[$i],
-                                'don_gia' => $request->form4_dongia[$i],
-                                'thanh_tien' => $request->form4_thanhtien[$i]
-                            ]);
-                        } else {
-                            $updateInvoiceDetail = Invoice_Items_MD::create([
-                                'form4_id' => $invoice->form4_id,
-                                'ten_hang_hoa_dich_vu' => $request->form4_tenhang[$i],
-                                'don_vi_tinh' => $request->form4_dvt[$i],
-                                'so_luong' => $request->form4_soluong[$i],
-                                'don_gia' => $request->form4_dongia[$i],
-                                'thanh_tien' => $request->form4_thanhtien[$i]
-                            ]);
-                        }
-                    } else {
-                        $updateInvoiceDetail = Invoice_Items_MD::create([
-                            'form4_id' => $invoice->form4_id,
-                            'ten_hang_hoa_dich_vu' => $request->form4_tenhang[$i],
-                            'don_vi_tinh' => $request->form4_dvt[$i],
-                            'so_luong' => $request->form4_soluong[$i],
-                            'don_gia' => $request->form4_dongia[$i],
-                            'thanh_tien' => $request->form4_thanhtien[$i]
-                        ]);
-                    }
+                if ($request->form4_id_item[$i] != NULl) {
+                    Invoice_Items_MD::find($request->form4_id_item[$i])->update([
+                        'ma_hang' => $request->form4_mahang[$i],
+                        'ten_hang_hoa_dich_vu' => $request->form4_tenhang[$i],
+                        'don_vi_tinh' => $request->form4_dvt[$i],
+                        'so_luong' => $request->form4_soluong[$i],
+                        'don_gia' => $request->form4_dongia[$i],
+                        'thue' => $request->form4_thue[$i],
+                        'thanh_tien' => $request->form4_thanhtien[$i]
+                    ]);
                 } else {
-                    $updateInvoiceDetail = Invoice_Items_MD::create([
+                    Invoice_Items_MD::create([
+                        'ma_hang' => $request->form4_mahang[$i],
                         'form4_id' => $invoice->form4_id,
                         'ten_hang_hoa_dich_vu' => $request->form4_tenhang[$i],
                         'don_vi_tinh' => $request->form4_dvt[$i],
                         'so_luong' => $request->form4_soluong[$i],
                         'don_gia' => $request->form4_dongia[$i],
-                        'thanh_tien' => $request->form4_thanhtien[$i]
+                        'thue' => $request->form4_thue[$i],
+                        'thanh_tien' => $request->form4_thanhtien[$i],
                     ]);
                 }
+                // if ((!empty(Invoice_Items_MD::where('form4_id', $invoice->form4_id)->where('ten_hang_hoa_dich_vu', $request->form4_tenhang[$i])->get()->toArray()))) {
+                //     $check  = Invoice_Items_MD::where('ten_hang_hoa_dich_vu', $request->form4_tenhang[$i])->where('form4_id', $invoice->form4_id)->first();
+                //     if (!empty($check)) {
+                //         if ($request->form4_tenhang[$i] == $check->ten_hang_hoa_dich_vu) {
+
+                //             $updateInvoiceDetail = Invoice_Items_MD::where('ten_hang_hoa_dich_vu', $request->form4_tenhang[$i])->where('form4_id', $invoice->form4_id)->update([
+                //                 'form4_id' => $invoice->form4_id,
+                //                 'ten_hang_hoa_dich_vu' => $request->form4_tenhang[$i],
+                //                 'don_vi_tinh' => $request->form4_dvt[$i],
+                //                 'so_luong' => $request->form4_soluong[$i],
+                //                 'don_gia' => $request->form4_dongia[$i],
+                //                 'thanh_tien' => $request->form4_thanhtien[$i]
+                //             ]);
+                //         } else {
+                //             $updateInvoiceDetail = Invoice_Items_MD::create([
+                //                 'form4_id' => $invoice->form4_id,
+                //                 'ten_hang_hoa_dich_vu' => $request->form4_tenhang[$i],
+                //                 'don_vi_tinh' => $request->form4_dvt[$i],
+                //                 'so_luong' => $request->form4_soluong[$i],
+                //                 'don_gia' => $request->form4_dongia[$i],
+                //                 'thanh_tien' => $request->form4_thanhtien[$i]
+                //             ]);
+                //         }
+                //     } else {
+                //         $updateInvoiceDetail = Invoice_Items_MD::create([
+                //             'form4_id' => $invoice->form4_id,
+                //             'ten_hang_hoa_dich_vu' => $request->form4_tenhang[$i],
+                //             'don_vi_tinh' => $request->form4_dvt[$i],
+                //             'so_luong' => $request->form4_soluong[$i],
+                //             'don_gia' => $request->form4_dongia[$i],
+                //             'thanh_tien' => $request->form4_thanhtien[$i]
+                //         ]);
+                //     }
+                // } else {
+                //     $updateInvoiceDetail = Invoice_Items_MD::create([
+                //         'form4_id' => $invoice->form4_id,
+                //         'ten_hang_hoa_dich_vu' => $request->form4_tenhang[$i],
+                //         'don_vi_tinh' => $request->form4_dvt[$i],
+                //         'so_luong' => $request->form4_soluong[$i],
+                //         'don_gia' => $request->form4_dongia[$i],
+                //         'thanh_tien' => $request->form4_thanhtien[$i]
+                //     ]);
+                // }
             }
         } else {
             $updateInvoiceDetail = 1;
@@ -389,5 +413,10 @@ class id_2_Controller extends Controller
             }
             return 0;
         }
+    }
+    public function getMahang(Request $request)
+    {
+        $data =  Invoice_Items_MD::where('ma_hang', 'like', '%' . $request->char . '%')->select('ma_hang')->distinct()->limit(10)->get();
+        return response()->json($data);
     }
 }
